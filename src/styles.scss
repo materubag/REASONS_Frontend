@@ -1,1 +1,59 @@
-/* You can add global styles to this file, and also import other style files */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  color-scheme: light;
+}
+
+* {
+  @apply box-border;
+}
+
+mat-icon,
+.material-symbols-outlined {
+  font-family: 'Material Symbols Outlined';
+  font-weight: normal;
+  font-style: normal;
+  line-height: 1;
+  letter-spacing: normal;
+  text-transform: none;
+  display: inline-block;
+  white-space: nowrap;
+  word-wrap: normal;
+  direction: ltr;
+  -webkit-font-feature-settings: 'liga';
+  -webkit-font-smoothing: antialiased;
+}
+
+html,
+body {
+  @apply m-0 p-0 bg-background text-on-surface;
+  font-family: 'Public Sans', sans-serif;
+}
+
+body {
+  min-height: 100vh;
+}
+
+@layer components {
+  .btn-primary {
+    @apply bg-primary text-white px-6 py-2.5 rounded font-medium hover:bg-primary-dark transition-colors;
+  }
+
+  .btn-secondary {
+    @apply border border-primary text-primary px-6 py-2.5 rounded font-medium hover:bg-primary hover:text-white transition-colors;
+  }
+
+  .section-title {
+    @apply text-3xl md:text-4xl font-bold text-on-surface mb-4;
+  }
+
+  .section-subtitle {
+    @apply text-base md:text-lg text-slate-gray max-w-3xl;
+  }
+
+  .card {
+    @apply bg-surface border border-border rounded-lg shadow-md hover:shadow-lg transition-shadow p-6;
+  }
+}
