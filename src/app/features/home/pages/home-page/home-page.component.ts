@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ApiService, InvestigadoresStoreService } from '../../../../core/services';
+import { ApiService, InvestigadoresStoreService, HomeStoreService } from '../../../../core/services';
 import { GrupoInformacion, Investigador, LineaInvestigacion } from '../../../../core/models';
 import { resolveBackendUrl } from '../../../../core/utils/url';
 
@@ -20,7 +20,8 @@ export class HomePageComponent implements OnInit {
 
   constructor(
     private apiService: ApiService,
-    private investigadoresStore: InvestigadoresStoreService
+    private investigadoresStore: InvestigadoresStoreService,
+    private homeStore: HomeStoreService
   ) {}
 
   ngOnInit(): void {
@@ -30,7 +31,7 @@ export class HomePageComponent implements OnInit {
   }
 
   private loadGrupoInformacion(): void {
-    this.apiService.getGrupoInformacion(1, 1).subscribe({
+    this.homeStore.getGrupoInformacion(1, 1).subscribe({
       next: (response) => {
         if (response.success && response.data.length > 0) {
           this.grupoInformacion = response.data[0];
@@ -43,7 +44,7 @@ export class HomePageComponent implements OnInit {
   }
 
   private loadLineasInvestigacion(): void {
-    this.apiService.getLineasInvestigacion(1, 3).subscribe({
+    this.homeStore.getLineasInvestigacion(1, 3).subscribe({
       next: (response) => {
         if (response.success) {
           this.lineasInvestigacion = [...response.data].sort((a, b) => a.id - b.id);
