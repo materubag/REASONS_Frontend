@@ -1,0 +1,64 @@
+<main class="flex-grow w-full max-w-max-width mx-auto px-margin-mobile md:px-margin-desktop py-12 md:py-16">
+  <header class="mb-12 md:mb-16 max-w-3xl">
+    <h1 class="font-headline-xl-mobile md:font-headline-xl text-headline-xl-mobile md:text-headline-xl text-deep-navy mb-4">Contact REASONS</h1>
+    <p class="font-body-lg text-body-lg text-slate-gray">Reach out to our research group to discuss collaborations, inquiries about our publications, or to learn more about our ongoing sustainability projects.</p>
+  </header>
+
+  <div class="grid grid-cols-1 lg:grid-cols-12 gap-gutter">
+    <section class="lg:col-span-7 bg-surface-container-lowest border border-muted-blue-gray rounded-xl p-6 md:p-8">
+      <h2 class="font-headline-md text-headline-md text-deep-navy mb-6">Send us a message</h2>
+      <form class="space-y-6">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div>
+            <label class="block font-label-md text-label-md text-deep-navy mb-2" for="name">Name</label>
+            <input id="name" name="name" type="text" class="w-full bg-surface-container-lowest border border-cool-gray rounded-DEFAULT px-4 py-3 focus:outline-none focus:border-secondary focus:ring-1 focus:ring-secondary transition-all" placeholder="Dr. Jane Doe" />
+          </div>
+          <div>
+            <label class="block font-label-md text-label-md text-deep-navy mb-2" for="email">Email</label>
+            <input id="email" name="email" type="email" class="w-full bg-surface-container-lowest border border-cool-gray rounded-DEFAULT px-4 py-3 focus:outline-none focus:border-secondary focus:ring-1 focus:ring-secondary transition-all" placeholder="jane.doe@university.edu" />
+          </div>
+        </div>
+        <div>
+          <label class="block font-label-md text-label-md text-deep-navy mb-2" for="subject">Subject</label>
+          <input id="subject" name="subject" type="text" class="w-full bg-surface-container-lowest border border-cool-gray rounded-DEFAULT px-4 py-3 focus:outline-none focus:border-secondary focus:ring-1 focus:ring-secondary transition-all" placeholder="Research Collaboration Inquiry" />
+        </div>
+        <div>
+          <label class="block font-label-md text-label-md text-deep-navy mb-2" for="message">Message</label>
+          <textarea id="message" name="message" rows="5" class="w-full bg-surface-container-lowest border border-cool-gray rounded-DEFAULT px-4 py-3 focus:outline-none focus:border-secondary focus:ring-1 focus:ring-secondary transition-all resize-none" placeholder="Please provide details about your inquiry..."></textarea>
+        </div>
+        <button class="bg-primary hover:bg-surface-tint text-on-primary font-label-md text-label-md px-8 py-3 rounded-DEFAULT transition-colors w-full md:w-auto flex items-center justify-center gap-2" type="submit"><span>Send Message</span><mat-icon fontSet="material-symbols-outlined" class="text-sm">send</mat-icon></button>
+      </form>
+    </section>
+
+    <aside class="lg:col-span-5 flex flex-col gap-gutter">
+      <div class="bg-surface-container border border-muted-blue-gray rounded-xl p-6 md:p-8">
+        <h3 class="font-headline-md text-headline-md text-deep-navy mb-6">Institutional Details</h3>
+        <div class="space-y-6">
+          <div class="flex items-start gap-4">
+            <div class="mt-1 bg-surface-container-lowest p-2 border border-muted-blue-gray rounded-DEFAULT text-primary"><mat-icon fontSet="material-symbols-outlined">location_on</mat-icon></div>
+            <div>
+              <h4 class="font-label-md text-label-md text-deep-navy mb-1 uppercase tracking-wider">Address</h4>
+              <p class="font-body-sm text-body-sm text-slate-gray leading-relaxed">Av. de Los Chasquis y Av. Río Payamino.<br>Facultad de Ingeniería en Sistemas, Electrónica e Industrial.<br>Universidad Técnica de Ambato.<br>Ambato – Ecuador.</p>
+            </div>
+          </div>
+          <div class="flex items-start gap-4">
+            <div class="mt-1 bg-surface-container-lowest p-2 border border-muted-blue-gray rounded-DEFAULT text-primary"><mat-icon fontSet="material-symbols-outlined">mail</mat-icon></div>
+            <div>
+              <h4 class="font-label-md text-label-md text-deep-navy mb-1 uppercase tracking-wider">Email</h4>
+              <a class="font-body-md text-body-md text-secondary hover:text-primary transition-colors" href="mailto:reasons@uta.edu.ec">reasons@uta.edu.ec</a>
+            </div>
+          </div>
+          <div class="pt-6 mt-6 border-t border-muted-blue-gray/50">
+            <p class="font-body-sm text-body-sm text-slate-gray italic">Our administrative office is open Monday through Friday, 08:00 to 17:00 (ECT).</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="h-64 bg-surface-container-high border border-muted-blue-gray rounded-xl overflow-hidden relative group cursor-pointer">
+        <img alt="Map of Ambato, Ecuador" class="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity duration-300 filter grayscale group-hover:grayscale-0" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBDPIVHWfFq6-jOegK09fGBlJjE8wwk5W7KxLBXl_c7pwpWYzOIm1OeFNv7FUfYc49Osp3AmShJj-IHl-6SL4BS_iU7h_PO6CxrIMXcyO71_CNpVQlX_pDSXJoK90UMGKXLvGTh_YrL26CFoJHUZ7mVw-VP4uvUXTF6VO4GaOgzMJZR5hxGSTJsi7qoSgQIVCZFq4kMK-0rQu94YTBirbSNS03VUeSJZtBY-ebNc-dSYlYXaOkjb_LNh6hhZX_lpHSBxETd2dUxATP1" />
+        <div class="absolute inset-0 border border-muted-blue-gray rounded-xl pointer-events-none"></div>
+        <div class="absolute bottom-4 right-4 bg-surface-container-lowest/90 backdrop-blur-sm border border-muted-blue-gray px-3 py-1.5 rounded-DEFAULT shadow-sm flex items-center gap-2"><mat-icon fontSet="material-symbols-outlined" class="text-sm text-primary">map</mat-icon><span class="font-label-md text-label-md text-deep-navy">View on Map</span></div>
+      </div>
+    </aside>
+  </div>
+</main>
