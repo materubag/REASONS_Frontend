@@ -1,0 +1,138 @@
+<div class="min-h-screen bg-surface-container-lowest py-12">
+  <div class="max-w-max-width mx-auto px-margin-mobile md:px-margin-desktop">
+    <!-- Back Navigation -->
+    <div class="mb-8">
+      <a routerLink="/publicaciones" class="inline-flex items-center gap-2 text-primary hover:text-primary-container font-label-md transition-colors">
+        <span class="material-symbols-outlined">arrow_back</span>
+        Volver a Publicaciones
+      </a>
+    </div>
+
+    <!-- Loading State -->
+    <div *ngIf="loading" class="flex flex-col items-center justify-center py-20">
+      <div class="w-12 h-12 border-4 border-primary border-t-transparent rounded-full animate-spin mb-4"></div>
+      <p class="text-slate-gray font-body-md">Cargando detalles de la publicación...</p>
+    </div>
+
+    <!-- Error State -->
+    <div *ngIf="error && !loading" class="bg-error/10 border border-error/20 text-error p-8 rounded-DEFAULT text-center max-w-lg mx-auto">
+      <span class="material-symbols-outlined text-5xl mb-4 block">error</span>
+      <h2 class="font-headline-md mb-2 text-deep-navy">Error al cargar</h2>
+      <p class="font-body-md text-slate-gray mb-6">No se pudo cargar la información de la publicación solicitada o no existe.</p>
+      <a routerLink="/publicaciones" class="btn-primary inline-flex items-center gap-2 rounded-DEFAULT">
+        Ir a Publicaciones
+      </a>
+    </div>
+
+    <!-- Main Content -->
+    <div *ngIf="publicacion && !loading && !error" class="space-y-12 animate-fade-in">
+      <div class="bg-white border border-muted-blue-gray rounded-DEFAULT p-6 md:p-10 shadow-custom-soft flex flex-col lg:flex-row gap-10">
+        <!-- Publication Cover/Thumbnail -->
+        <div *ngIf="publicacion.portada" class="w-full lg:w-1/4 max-w-[280px] mx-auto lg:mx-0 flex-shrink-0">
+          <div class="aspect-[3/4] bg-surface-container rounded-DEFAULT border border-muted-blue-gray overflow-hidden shadow-sm relative group">
+            <img [src]="resolveBackendUrl(publicacion.portada)" [alt]="publicacion.titulo" class="w-full h-full object-cover" />
+          </div>
+        </div>
+
+        <!-- Publication Core Info -->
+        <div class="flex-grow flex flex-col justify-between">
+          <div class="space-y-6">
+            <div class="flex flex-wrap gap-2">
+              <span *ngFor="let kw of publicacion.keywords || []" class="bg-surface-container-highest text-deep-navy px-3 py-1 font-label-md text-label-sm rounded-DEFAULT border border-cool-gray">{{ kw }}</span>
+              <span *ngIf="!publicacion.keywords || publicacion.keywords.length === 0" class="bg-surface-container-highest text-deep-navy px-3 py-1 font-label-md text-label-sm rounded-DEFAULT border border-cool-gray">Investigación</span>
+              <span *ngIf="publicacion.anio" class="bg-primary/10 text-primary px-3 py-1 font-label-md text-label-sm rounded-DEFAULT">{{ publicacion.anio }}</span>
+            </div>
+
+            <h1 class="font-headline-xl-mobile md:font-headline-xl text-deep-navy leading-tight">{{ publicacion.titulo }}</h1>
+            
+            <div class="text-body-md font-medium text-slate-gray">
+              <span class="text-deep-navy font-bold">Autores:</span> {{ publicacion.autores }}
+            </div>
+
+            <div *ngIf="publicacion.revista" class="text-body-sm text-slate-gray">
+              <span class="font-semibold text-deep-navy">Revista / Editorial:</span> <em>{{ publicacion.revista }}</em>
+            </div>
+          </div>
+
+          <div class="flex flex-wrap gap-4 pt-4 border-t border-muted-blue-gray/30 mt-6 lg:mt-auto">
+            <a *ngIf="publicacion.url" [href]="publicacion.url" target="_blank" class="bg-primary hover:bg-surface-tint text-on-primary px-6 py-2.5 rounded-DEFAULT font-label-md text-label-md transition-colors inline-flex items-center gap-2">
+              <span class="material-symbols-outlined">open_in_new</span> Ver Artículo
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-12">
+        <!-- Abstract & Citations (Left panel) -->
+        <div class="lg:col-span-8 space-y-12">
+          <!-- Abstract Section -->
+          <section class="bg-white border border-muted-blue-gray rounded-DEFAULT p-8 shadow-sm">
+            <h2 class="font-headline-md text-deep-navy mb-4 flex items-center gap-2">
+              <span class="material-symbols-outlined text-primary">menu_book</span>
+              Resumen (Abstract)
+            </h2>
+            <p class="font-body-md text-slate-gray leading-relaxed whitespace-pre-line">{{ publicacion.resumen }}</p>
+          </section>
+
+          <!-- Citation Section -->
+          <section *ngIf="publicacion.cita" class="bg-surface-container-low border border-muted-blue-gray rounded-DEFAULT p-8 shadow-sm">
+            <h2 class="font-headline-md text-deep-navy mb-4 flex items-center gap-2">
+              <span class="material-symbols-outlined text-primary">format_quote</span>
+              Cita Sugerida (Citation)
+            </h2>
+            <div class="bg-white border border-muted-blue-gray rounded-DEFAULT p-5">
+              <p class="font-body-md text-deep-navy italic leading-relaxed">{{ publicacion.cita }}</p>
+            </div>
+          </section>
+        </div>
+
+        <!-- Sidebar (Right panel) -->
+        <aside class="lg:col-span-4 space-y-8">
+          <!-- Publication Details Sidebar -->
+          <div class="bg-surface-container-low border border-muted-blue-gray rounded-DEFAULT p-6">
+            <h3 class="font-label-lg text-deep-navy mb-4 uppercase tracking-wider">Detalles de Publicación</h3>
+            <div class="space-y-4 font-body-sm text-body-sm">
+              <div *ngIf="publicacion.doi" class="pb-3 border-b border-muted-blue-gray/40">
+                <span class="text-slate-gray block mb-1">DOI</span>
+                <a [href]="'https://doi.org/' + publicacion.doi" target="_blank" class="text-primary hover:text-primary-container font-semibold truncate block">{{ publicacion.doi }}</a>
+              </div>
+              <div *ngIf="publicacion.categoria" class="pb-3 border-b border-muted-blue-gray/40">
+                <span class="text-slate-gray block mb-1">Categoría</span>
+                <span class="text-deep-navy font-semibold">{{ publicacion.categoria }}</span>
+              </div>
+              <div *ngIf="publicacion.lineas && publicacion.lineas.length > 0" class="pb-3 border-b border-muted-blue-gray/40">
+                <span class="text-slate-gray block mb-2">Líneas de Investigación Relacionadas</span>
+                <div class="flex flex-wrap gap-1.5">
+                  <span *ngFor="let line of publicacion.lineas" class="bg-surface-container-highest text-deep-navy border border-muted-blue-gray/30 px-2 py-0.5 rounded-DEFAULT font-label-md text-label-xs">
+                    {{ line.nombre }}
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Authors / Researchers Involved -->
+          <div *ngIf="publicacion.investigadores && publicacion.investigadores.length > 0" class="space-y-4">
+            <h3 class="font-headline-sm text-deep-navy">Miembros del Grupo Participantes</h3>
+            <div class="space-y-4">
+              <div *ngFor="let inv of publicacion.investigadores" class="bg-white border border-muted-blue-gray rounded-DEFAULT p-4 flex gap-4 hover:shadow-custom-soft transition-all duration-300 animate-slide-in">
+                <div class="w-12 h-12 rounded-full bg-surface-container overflow-hidden flex-shrink-0 relative">
+                  <img *ngIf="inv.foto" [src]="resolveBackendUrl(inv.foto)" [alt]="inv.nombre" class="w-full h-full object-cover" />
+                  <span *ngIf="!inv.foto" class="material-symbols-outlined text-3xl text-cool-gray absolute inset-0 flex items-center justify-center">person</span>
+                </div>
+                <div class="flex-grow min-w-0">
+                  <h4 class="font-label-md text-deep-navy font-bold truncate">{{ inv.nombre }}</h4>
+                  <p class="font-body-xs text-secondary truncate">{{ inv.cargo }}</p>
+                  <a *ngIf="inv.correo" [href]="'mailto:' + inv.correo" class="text-primary hover:text-primary-container text-body-xs flex items-center gap-1 mt-1 font-medium">
+                    <span class="material-symbols-outlined text-sm">mail</span>
+                    Contacto
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </aside>
+      </div>
+    </div>
+  </div>
+</div>

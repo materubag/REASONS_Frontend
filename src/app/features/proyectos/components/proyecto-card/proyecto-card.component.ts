@@ -25,10 +25,16 @@ import { resolveBackendUrl } from '../../../../core/utils/url';
       <!-- Categories -->
       <div class="flex flex-wrap gap-2 mb-4">
         <span
-          *ngFor="let categoria of (proyecto.categorias || [])"
+          *ngFor="let keyword of (proyecto.keywords || [])"
           class="inline-block bg-primary/10 text-primary text-xs font-semibold px-3 py-1 rounded-full"
         >
-          {{ categoria }}
+          {{ keyword }}
+        </span>
+        <span
+          *ngIf="!proyecto.keywords || proyecto.keywords.length === 0"
+          class="inline-block bg-primary/10 text-primary text-xs font-semibold px-3 py-1 rounded-full"
+        >
+          Sostenibilidad
         </span>
       </div>
 
