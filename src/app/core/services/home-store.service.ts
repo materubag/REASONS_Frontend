@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { Observable, throwError } from 'rxjs';
-import { catchError, shareReplay } from 'rxjs/operators';
+import { Observable, of } from 'rxjs';
+import { tap } from 'rxjs/operators';
 import { ApiService } from './api.service';
 import { GrupoInformacion, LineaInvestigacion, PaginatedResponse } from '../models';
 
@@ -8,8 +8,8 @@ import { GrupoInformacion, LineaInvestigacion, PaginatedResponse } from '../mode
   providedIn: 'root',
 })
 export class HomeStoreService {
-  private readonly grupoCache = new Map<string, Observable<PaginatedResponse<GrupoInformacion>>>();
-  private readonly lineasCache = new Map<string, Observable<PaginatedResponse<LineaInvestigacion>>>();
+  private readonly grupoCache = new Map<string, PaginatedResponse<GrupoInformacion>>();
+  private readonly lineasCache = new Map<string, PaginatedResponse<LineaInvestigacion>>();
 
   constructor(private apiService: ApiService) {}
 
@@ -17,38 +17,32 @@ export class HomeStoreService {
     const key = `${page}:${limit}`;
     const cached = this.grupoCache.get(key);
     if (cached) {
-      return cached;
+      return of(cached);
     }
 
-    const request$ = this.apiService.getGrupoInformacion(page, limit).pipe(
-      catchError((error) => {
-        this.grupoCache.delete(key);
-        return throwError(() => error);
-      }),
-      shareReplay({ bufferSize: 1, refCount: false })
+    return this.apiService.getGrupoInformacion(page, limit).pipe(
+      tap((response) => {
+        if (response.success) {
+          this.grupoCache.set(key, response);
+        }
+      })
     );
-
-    this.grupoCache.set(key, request$);
-    return request$;
   }
 
   getLineasInvestigacion(page = 1, limit = 3): Observable<PaginatedResponse<LineaInvestigacion>> {
     const key = `${page}:${limit}`;
     const cached = this.lineasCache.get(key);
     if (cached) {
-      return cached;
+      return of(cached);
     }
 
-    const request$ = this.apiService.getLineasInvestigacion(page, limit).pipe(
-      catchError((error) => {
-        this.lineasCache.delete(key);
-        return throwError(() => error);
-      }),
-      shareReplay({ bufferSize: 1, refCount: false })
+    return this.apiService.getLineasInvestigacion(page, limit).pipe(
+      tap((response) => {
+        if (response.success) {
+          this.lineasCache.set(key, response);
+        }
+      })
     );
-
-    this.lineasCache.set(key, request$);
-    return request$;
   }
 
   clearCache(): void {

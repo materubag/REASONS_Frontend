@@ -4,8 +4,244 @@
 
 :root {
   color-scheme: light;
+  
+  /* GREEN THEME (Default) */
+  --color-primary: #006b16;
+  --color-primary-container: #28862d;
+  --color-primary-fixed: #99f990;
+  --color-primary-fixed-dim: #7edc77;
+  --color-primary-dark: #16621f;
+  --color-surface-tint: #016e17;
+  --color-on-primary-fixed-variant: #00530f;
+  --color-on-primary-fixed: #002203;
+  --color-on-primary-container: #f7fff0;
+  
+  --color-background: #f4fafb;
+  --color-surface: #f4fafb;
+  --color-surface-dim: #d5dbdc;
+  --color-surface-bright: #f4fafb;
+  --color-surface-container-low: #eff5f6;
+  --color-surface-container-lowest: #ffffff;
+  --color-surface-container: #e9eff0;
+  --color-surface-container-high: #e3e9ea;
+  --color-surface-container-highest: #dee4e5;
+  --color-on-surface: #161d1e;
+  --color-on-background: #161d1e;
+  --color-on-surface-variant: #3f4a3c;
+  --color-border: #8494A4;
+  --color-slate-gray: #687A86;
+  --color-deep-navy: #3D5261;
+}
+/* ==========================================================================
+   DEFAULT DARK THEME (GREEN)
+   ========================================================================== */
+.dark {
+  color-scheme: dark;
+  
+  --color-background: #0d1416;
+  --color-surface: #0d1416;
+  --color-surface-dim: #0b1112;
+  --color-surface-bright: #1b2224;
+  --color-surface-container-low: #12181a;
+  --color-surface-container-lowest: #0a0e0f;
+  --color-surface-container: #161c1e;
+  --color-surface-container-high: #202628;
+  --color-surface-container-highest: #2b3133;
+  --color-on-surface: #ecf2f3;
+  --color-on-background: #ecf2f3;
+  --color-on-surface-variant: #c0c9c3;
+  --color-border: #4d565e;
+  --color-slate-gray: #a3b3bf;
+  --color-deep-navy: #dee4e5;
+
+  /* Primary green adjusted for dark readability */
+  --color-primary: #7edc77;
+  --color-primary-container: #00530f;
+  --color-primary-fixed: #99f990;
+  --color-primary-fixed-dim: #7edc77;
+  --color-primary-dark: #00530f;
+  --color-surface-tint: #7edc77;
+  --color-on-primary-fixed-variant: #002203;
+  --color-on-primary-fixed: #002203;
+  --color-on-primary-container: #002203;
 }
 
+/* ==========================================================================
+   BLUE THEME (ENGINEERING & TRUST)
+   ========================================================================== */
+:root[data-theme="blue"] {
+  --color-primary: #1B3A52;
+  --color-primary-container: #3D6F8A;
+  --color-primary-fixed: #BACED8;
+  --color-primary-fixed-dim: #7AAABE;
+  --color-primary-dark: #0D2235;
+  --color-surface-tint: #1B3A52;
+  --color-on-primary-fixed-variant: #0D2235;
+  --color-on-primary-fixed: #0D2235;
+  --color-on-primary-container: #EEF3F7;
+  
+  --color-background: #EEF3F7;
+  --color-surface: #EEF3F7;
+  --color-surface-dim: #BACED8;
+  --color-surface-bright: #ffffff;
+  --color-surface-container-low: #e3ebf0;
+  --color-surface-container-lowest: #ffffff;
+  --color-surface-container: #dce6eb;
+  --color-surface-container-high: #d1dde3;
+  --color-surface-container-highest: #c7d4dc;
+  --color-on-surface: #0D2235;
+  --color-on-background: #0D2235;
+  --color-on-surface-variant: #3D6F8A;
+  --color-border: #BACED8;
+  --color-slate-gray: #7AAABE;
+  --color-deep-navy: #1B3A52;
+}
+
+.dark[data-theme="blue"] {
+  --color-background: #0D2235;
+  --color-surface: #0D2235;
+  --color-surface-dim: #071522;
+  --color-surface-bright: #19334c;
+  --color-surface-container-low: #0b1c2b;
+  --color-surface-container-lowest: #071522;
+  --color-surface-container: #0f2437;
+  --color-surface-container-high: #142b40;
+  --color-surface-container-highest: #19334c;
+  --color-on-surface: #EEF3F7;
+  --color-on-background: #EEF3F7;
+  --color-on-surface-variant: #BACED8;
+  --color-border: #3D6F8A;
+  --color-slate-gray: #7AAABE;
+  --color-deep-navy: #EEF3F7;
+
+  --color-primary: #7AAABE;
+  --color-primary-container: #1B3A52;
+  --color-primary-fixed: #BACED8;
+  --color-primary-fixed-dim: #7AAABE;
+  --color-primary-dark: #1B3A52;
+  --color-surface-tint: #7AAABE;
+  --color-on-primary-fixed-variant: #071522;
+  --color-on-primary-fixed: #071522;
+  --color-on-primary-container: #071522;
+}
+
+/* ==========================================================================
+   GRAY THEME (NEUTRAL & PROFESSIONAL)
+   ========================================================================== */
+:root[data-theme="gray"] {
+  --color-primary: #4A4A48;
+  --color-primary-container: #717068;
+  --color-primary-fixed: #D6D5D0;
+  --color-primary-fixed-dim: #A8A7A2;
+  --color-primary-dark: #2C2C2A;
+  --color-surface-tint: #4A4A48;
+  --color-on-primary-fixed-variant: #2C2C2A;
+  --color-on-primary-fixed: #2C2C2A;
+  --color-on-primary-container: #F5F5F4;
+  
+  --color-background: #F5F5F4;
+  --color-surface: #F5F5F4;
+  --color-surface-dim: #D6D5D0;
+  --color-surface-bright: #ffffff;
+  --color-surface-container-low: #e9e8e3;
+  --color-surface-container-lowest: #ffffff;
+  --color-surface-container: #e0ded9;
+  --color-surface-container-high: #d6d5d0;
+  --color-surface-container-highest: #ccccc7;
+  --color-on-surface: #2C2C2A;
+  --color-on-background: #2C2C2A;
+  --color-on-surface-variant: #717068;
+  --color-border: #D6D5D0;
+  --color-slate-gray: #A8A7A2;
+  --color-deep-navy: #4A4A48;
+}
+
+.dark[data-theme="gray"] {
+  --color-background: #2C2C2A;
+  --color-surface: #2C2C2A;
+  --color-surface-dim: #181817;
+  --color-surface-bright: #424240;
+  --color-surface-container-low: #212120;
+  --color-surface-container-lowest: #181817;
+  --color-surface-container: #2c2c2a;
+  --color-surface-container-high: #373735;
+  --color-surface-container-highest: #424240;
+  --color-on-surface: #F5F5F4;
+  --color-on-background: #F5F5F4;
+  --color-on-surface-variant: #D6D5D0;
+  --color-border: #717068;
+  --color-slate-gray: #A8A7A2;
+  --color-deep-navy: #F5F5F4;
+
+  --color-primary: #A8A7A2;
+  --color-primary-container: #4A4A48;
+  --color-primary-fixed: #D6D5D0;
+  --color-primary-fixed-dim: #A8A7A2;
+  --color-primary-dark: #4A4A48;
+  --color-surface-tint: #A8A7A2;
+  --color-on-primary-fixed-variant: #181817;
+  --color-on-primary-fixed: #181817;
+  --color-on-primary-container: #181817;
+}
+
+/* ==========================================================================
+   EARTH THEME (EARTH & OPERATIONS)
+   ========================================================================== */
+:root[data-theme="earth"] {
+  --color-primary: #1B4A45;
+  --color-primary-container: #2C7A72;
+  --color-primary-fixed: #A8D4BF;
+  --color-primary-fixed-dim: #5AABAA;
+  --color-primary-dark: #1B3A52;
+  --color-surface-tint: #1B4A45;
+  --color-on-primary-fixed-variant: #1B3A52;
+  --color-on-primary-fixed: #1B3A52;
+  --color-on-primary-container: #EDF4F0;
+  
+  --color-background: #EDF4F0;
+  --color-surface: #EDF4F0;
+  --color-surface-dim: #A8D4BF;
+  --color-surface-bright: #ffffff;
+  --color-surface-container-low: #dbe6e0;
+  --color-surface-container-lowest: #ffffff;
+  --color-surface-container: #cfddd6;
+  --color-surface-container-high: #a8d4bf;
+  --color-surface-container-highest: #92c7b0;
+  --color-on-surface: #1B3A52;
+  --color-on-background: #1B3A52;
+  --color-on-surface-variant: #2C7A72;
+  --color-border: #A8D4BF;
+  --color-slate-gray: #5AABAA;
+  --color-deep-navy: #1B4A45;
+}
+
+.dark[data-theme="earth"] {
+  --color-background: #1B3A52;
+  --color-surface: #1B3A52;
+  --color-surface-dim: #0d1e2b;
+  --color-surface-bright: #2b577a;
+  --color-surface-container-low: #122738;
+  --color-surface-container-lowest: #0d1e2b;
+  --color-surface-container: #1b3a52;
+  --color-surface-container-high: #234966;
+  --color-surface-container-highest: #2b577a;
+  --color-on-surface: #EDF4F0;
+  --color-on-background: #EDF4F0;
+  --color-on-surface-variant: #A8D4BF;
+  --color-border: #2C7A72;
+  --color-slate-gray: #5AABAA;
+  --color-deep-navy: #EDF4F0;
+
+  --color-primary: #5AABAA;
+  --color-primary-container: #1B4A45;
+  --color-primary-fixed: #A8D4BF;
+  --color-primary-fixed-dim: #5AABAA;
+  --color-primary-dark: #1B4A45;
+  --color-surface-tint: #5AABAA;
+  --color-on-primary-fixed-variant: #0d1e2b;
+  --color-on-primary-fixed: #0d1e2b;
+  --color-on-primary-container: #0d1e2b;
+}
 * {
   @apply box-border;
 }
@@ -29,7 +265,7 @@ mat-icon,
 html,
 body {
   @apply m-0 p-0 bg-background text-on-surface;
-  font-family: 'Public Sans', sans-serif;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
 }
 
 body {

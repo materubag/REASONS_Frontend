@@ -6,7 +6,7 @@ export interface Investigador {
   descripcion?: string;
   correo?: string;
   biografia?: string;
-  cargo?: string;
+  cargo: 'Director' | 'Subdirector' | 'Investigador';
   foto?: string;
   orcid?: string;
   enlaces?: Record<string, string>;
@@ -22,6 +22,7 @@ export interface Proyecto {
   id: number;
   titulo: string;
   descripcion: string;
+  descripcionExtendida?: string;
   imagen?: string;
   categorias?: string[];
   participantes?: string;
@@ -30,6 +31,9 @@ export interface Proyecto {
   fechaFin?: string;
   objetivos?: string;
   resultados?: string;
+  keywords?: string[];
+  investigadores?: Investigador[];
+  lineas?: LineaInvestigacion[];
   createdAt?: string;
   updatedAt?: string;
 }
@@ -45,7 +49,12 @@ export interface Publicacion {
   url?: string;
   categoria?: string;
   imagen?: string;
+  portada?: string;
   pdf?: string;
+  cita?: string;
+  keywords?: string[];
+  investigadores?: Investigador[];
+  lineas?: LineaInvestigacion[];
   createdAt?: string;
   updatedAt?: string;
 }
@@ -53,11 +62,11 @@ export interface Publicacion {
 export interface Contacto {
   id: number;
   nombre: string;
-  email: string;
-  asunto: string;
+  correo: string;
   mensaje: string;
-  leido: boolean;
-  respondido: boolean;
+  fecha?: string;
+  email?: string;
+  asunto?: string;
   createdAt?: string;
   updatedAt?: string;
 }
@@ -77,6 +86,12 @@ export interface GrupoInformacion {
   telefono?: string;
   sitioWeb?: string;
   misionVision?: string;
+  metodologia?: string;
+  portada?: string;
+  facebook?: string;
+  instagram?: string;
+  mainColor?: string;
+  miniLogo?: string;
   createdAt?: string;
   updatedAt?: string;
 }
