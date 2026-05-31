@@ -1,0 +1,11 @@
+<div *ngIf="loading" class="flex flex-col items-center justify-center py-24">
+  <div class="w-12 h-12 border-4 border-primary border-t-transparent rounded-full animate-spin"></div>
+  <p class="text-sm text-slate-gray mt-4 font-semibold">Cargando información del proyecto...</p>
+</div>
+
+<app-proyecto-form 
+  *ngIf="!loading && proyecto"
+  [proyecto]="proyecto"
+  [isSubmitting]="isSubmitting" 
+  (submitForm)="onSubmitForm($event)"
+></app-proyecto-form>

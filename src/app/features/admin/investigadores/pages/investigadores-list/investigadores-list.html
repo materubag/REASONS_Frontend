@@ -1,0 +1,133 @@
+<!-- Header Section -->
+<div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-8">
+  <div>
+    <h1 class="text-3xl font-bold text-deep-navy font-headline-lg">Gestión de Investigadores</h1>
+  </div>
+  <a 
+    routerLink="/admin/investigadores/create"
+    class="inline-flex items-center justify-center px-5 py-3 bg-primary text-on-primary font-semibold rounded-lg hover:bg-primary-dark transition-colors shadow-sm w-full sm:w-auto"
+  >
+    <span class="material-symbols-outlined mr-2">add</span>
+    Agregar Investigador
+  </a>
+</div>
+
+
+
+<!-- Search & Filters Toolbar -->
+<div class="bg-surface-container-low border border-muted-blue-gray/30 rounded-xl p-4 mb-6 flex flex-col md:flex-row items-stretch md:items-center justify-between gap-4">
+  <!-- Search -->
+  <div class="relative flex-1">
+    <span class="absolute left-3 top-3 text-slate-gray">
+      <span class="material-symbols-outlined text-[20px]">search</span>
+    </span>
+    <input 
+      type="text" 
+      [(ngModel)]="searchTerm" 
+      (ngModelChange)="onSearchChange()"
+      placeholder="Buscar por nombre, cargo o biografía..." 
+      class="w-full bg-surface-container-lowest border border-muted-blue-gray/30 rounded-lg pl-10 pr-4 py-2.5 text-on-surface focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary transition-all text-sm"
+    >
+  </div>
+
+  <!-- View Toggle Buttons -->
+  <div class="flex items-center bg-surface-container-high rounded-lg p-1 space-x-1 self-end md:self-auto shadow-inner">
+    <button 
+      (click)="switchView('grid')"
+      [ngClass]="viewMode === 'grid' ? 'bg-surface-container-lowest text-primary font-semibold shadow-sm' : 'text-slate-gray hover:text-deep-navy'"
+      class="p-2 rounded-md transition-all flex items-center justify-center"
+      title="Vista de Tarjetas"
+    >
+      <span class="material-symbols-outlined text-[20px]">grid_view</span>
+    </button>
+    <button 
+      (click)="switchView('table')"
+      [ngClass]="viewMode === 'table' ? 'bg-surface-container-lowest text-primary font-semibold shadow-sm' : 'text-slate-gray hover:text-deep-navy'"
+      class="p-2 rounded-md transition-all flex items-center justify-center"
+      title="Vista de Tabla"
+    >
+      <span class="material-symbols-outlined text-[20px]">table_chart</span>
+    </button>
+  </div>
+</div>
+
+<!-- Loading Spinner -->
+<div *ngIf="loading" class="flex flex-col items-center justify-center py-24">
+  <div class="w-12 h-12 border-4 border-primary border-t-transparent rounded-full animate-spin"></div>
+  <p class="text-sm text-slate-gray mt-4 font-semibold">Cargando investigadores...</p>
+</div>
+
+<!-- Main List Views -->
+<div *ngIf="!loading">
+  <!-- Card Grid View -->
+  <div *ngIf="viewMode === 'grid'" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+    <div 
+      *ngFor="let researcher of paginatedInvestigadores"
+      class="bg-surface-container-lowest border border-muted-blue-gray/30 rounded-xl p-6 text-center hover:shadow-[0px_4px_20px_rgba(8,31,77,0.08)] hover:border-primary transition-all duration-300 group flex flex-col justify-between"
+    >
+      <div>
+        <img 
+          [src]="researcher.foto ? resolveBackendUrl(researcher.foto) : defaultAvatar" 
+          [alt]="researcher.nombre"
+          class="w-20 h-20 rounded-full object-cover border-4 border-surface-container-low mx-auto mb-4 group-hover:border-deep-navy transition-colors shadow-sm"
+        >
+
+        <h3 class="font-bold text-deep-navy text-lg group-hover:text-primary transition-colors line-clamp-1">
+          {{ researcher.nombre }}
+        </h3>
+        <div class="mt-2 mb-3">
+          <span [ngClass]="{
+            'bg-primary/10 text-primary border border-primary/20': !researcher.cargo || researcher.cargo === 'Investigador',
+            'bg-secondary/10 text-secondary border border-secondary/20': researcher.cargo === 'Subdirector',
+            'bg-success/10 text-success border border-success/20': researcher.cargo === 'Director'
+          }" class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-semibold">
+            {{ researcher.cargo || 'Investigador' }}
+          </span>
+        </div>
+        <p class="text-xs text-slate-gray line-clamp-3 mb-4 text-justify font-body-sm px-2">
+          {{ researcher.biografia || 'Sin biografía disponible en este momento.' }}
+        </p>
+      </div>
+
+      <div class="flex items-center space-x-2 border-t border-surface-container-high pt-4">
+        <a 
+          [routerLink]="['/admin/investigadores/edit', researcher.id]"
+          class="flex-1 inline-flex items-center justify-center py-2 px-3 bg-surface-container text-deep-navy hover:bg-primary hover:text-on-primary font-semibold text-xs rounded-lg transition-colors"
+        >
+          <span class="material-symbols-outlined text-[16px] mr-1.5">edit</span>
+          Editar
+        </a>
+        <button 
+          (click)="deleteInvestigador(researcher.id)"
+          class="inline-flex items-center justify-center p-2 bg-surface-container text-error hover:bg-error-container hover:text-on-error-container rounded-lg transition-colors"
+          title="Eliminar"
+        >
+          <span class="material-symbols-outlined text-[16px]">delete</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- Empty State for Grid -->
+    <div *ngIf="filteredInvestigadores.length === 0" class="col-span-full bg-surface-container-lowest border border-muted-blue-gray/30 rounded-xl p-12 text-center text-slate-gray">
+      <span class="material-symbols-outlined text-5xl block mb-2 opacity-50">drafts</span>
+      <p class="font-semibold text-deep-navy">No se encontraron investigadores</p>
+      <p class="text-xs mt-1">Prueba a escribir otro término de búsqueda o cambia tus filtros.</p>
+    </div>
+  </div>
+
+  <!-- Table View -->
+  <div *ngIf="viewMode === 'table'">
+    <app-investigador-table 
+      [investigadores]="paginatedInvestigadores"
+      (delete)="deleteInvestigador($event)"
+    ></app-investigador-table>
+  </div>
+
+  <!-- Pagination Component -->
+  <app-pagination 
+    [currentPage]="currentPage" 
+    [pageSize]="pageSize" 
+    [totalItems]="filteredInvestigadores.length" 
+    (pageChange)="goToPage($event)"
+  ></app-pagination>
+</div>
