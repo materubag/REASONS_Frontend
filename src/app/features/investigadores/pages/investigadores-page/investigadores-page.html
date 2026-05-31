@@ -61,10 +61,7 @@
 					rel="noopener noreferrer"
 					(click)="$event.stopPropagation()"
 				>
-					<span class="material-symbols-outlined text-[20px] flex items-center justify-center leading-none">
-						link
-					</span>
-
+					<i class="bi bi-link-45deg text-lg flex items-center justify-center leading-none"></i>
 					<span>ORCID</span>
 				</a>
 
@@ -74,10 +71,7 @@
 					[attr.title]="dir.correo || dir.email || ''"
 					(click)="$event.stopPropagation(); copyEmail(dir.correo || dir.email, dir.id)"
 				>
-					<span class="material-symbols-outlined text-[20px] flex items-center justify-center leading-none">
-						mail
-					</span>
-
+					<i class="bi bi-envelope text-lg flex items-center justify-center leading-none"></i>
 					<span *ngIf="copiedEmailId === dir.id" class="text-primary">
 						Copiado
 					</span>
@@ -92,16 +86,7 @@
 					title="LinkedIn"
 					(click)="$event.stopPropagation()"
 				>
-					<svg
-						class="w-5 h-5"
-						viewBox="0 0 24 24"
-						fill="currentColor"
-						aria-hidden="true"
-					>
-						<path
-							d="M20.45 20.45h-3.56v-5.57c0-1.33-.03-3.04-1.85-3.04-1.85 0-2.13 1.45-2.13 2.94v5.67H9.35V9h3.41v1.56h.05c.48-.9 1.65-1.85 3.4-1.85 3.63 0 4.3 2.39 4.3 5.5v6.24zM5.34 7.43a2.06 2.06 0 1 1 0-4.12 2.06 2.06 0 0 1 0 4.12zM7.12 20.45H3.56V9h3.56v11.45z"
-						/>
-					</svg>
+					<i class="bi bi-linkedin text-lg"></i>
 				</a>
 
 				<a
@@ -113,9 +98,7 @@
 					title="Facebook"
 					(click)="$event.stopPropagation()"
 				>
-					<span class="material-symbols-outlined text-[20px] flex items-center justify-center leading-none">
-						public
-					</span>
+					<i class="bi bi-facebook text-lg"></i>
 				</a>
 
 				<a
@@ -127,9 +110,7 @@
 					title="Instagram"
 					(click)="$event.stopPropagation()"
 				>
-					<span class="material-symbols-outlined text-[20px] flex items-center justify-center leading-none">
-						photo_camera
-					</span>
+					<i class="bi bi-instagram text-lg"></i>
 				</a>
 
 				<a
@@ -141,9 +122,7 @@
 					title="Telegram"
 					(click)="$event.stopPropagation()"
 				>
-					<span class="material-symbols-outlined text-[20px] flex items-center justify-center leading-none">
-						send
-					</span>
+					<i class="bi bi-telegram text-lg"></i>
 				</a>
 			</div>
 		</div>
@@ -159,11 +138,11 @@
 					<img
 						[alt]="investigador.nombre"
 						[src]="investigador.foto ? resolveBackendUrl(investigador.foto) : 'assets/images/placeholder.jpg'"
-						class="w-16 h-16 rounded-full object-cover border border-muted-blue-gray"
+						class="w-24 h-24 rounded-full object-cover border border-muted-blue-gray"
 					/>
 
 					<div>
-						<h3 class="font-headline-lg text-headline-lg text-deep-navy leading-tight">
+						<h3 class="font-headline-md text-headline-md text-deep-navy leading-tight">
 							{{ investigador.nombre }}
 						</h3>
 
@@ -175,7 +154,7 @@
 					</div>
 				</div>
 
-				<p class="font-body-sm text-body-sm text-slate-gray mb-6">
+				<p class="font-body-md text-body-md text-slate-gray mb-6">
 					{{ getShortBio(investigador.biografia) || 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.' }}
 				</p>
 
@@ -195,10 +174,7 @@
 					rel="noopener noreferrer"
 					(click)="$event.stopPropagation()"
 				>
-					<span class="material-symbols-outlined text-[20px] flex items-center justify-center leading-none">
-						link
-					</span>
-
+					<i class="bi bi-link-45deg text-lg flex items-center justify-center leading-none"></i>
 					<span>ORCID</span>
 				</a>
 
@@ -208,10 +184,7 @@
 					[attr.title]="investigador.correo || investigador.email || ''"
 					(click)="$event.stopPropagation(); copyEmail(investigador.correo || investigador.email, investigador.id)"
 				>
-					<span class="material-symbols-outlined text-[20px] flex items-center justify-center leading-none">
-						mail
-					</span>
-
+					<i class="bi bi-envelope text-lg flex items-center justify-center leading-none"></i>
 					<span
 						*ngIf="copiedEmailId === investigador.id"
 						class="text-primary"
@@ -229,16 +202,7 @@
 					title="LinkedIn"
 					(click)="$event.stopPropagation()"
 				>
-					<svg
-						class="w-5 h-5"
-						viewBox="0 0 24 24"
-						fill="currentColor"
-						aria-hidden="true"
-					>
-						<path
-							d="M20.45 20.45h-3.56v-5.57c0-1.33-.03-3.04-1.85-3.04-1.85 0-2.13 1.45-2.13 2.94v5.67H9.35V9h3.41v1.56h.05c.48-.9 1.65-1.85 3.4-1.85 3.63 0 4.3 2.39 4.3 5.5v6.24zM5.34 7.43a2.06 2.06 0 1 1 0-4.12 2.06 2.06 0 0 1 0 4.12zM7.12 20.45H3.56V9h3.56v11.45z"
-						/>
-					</svg>
+					<i class="bi bi-linkedin text-lg"></i>
 				</a>
 
 				<a
@@ -250,9 +214,7 @@
 					title="Facebook"
 					(click)="$event.stopPropagation()"
 				>
-					<span class="material-symbols-outlined text-[20px] flex items-center justify-center leading-none">
-						public
-					</span>
+					<i class="bi bi-facebook text-lg"></i>
 				</a>
 
 				<a
@@ -264,9 +226,7 @@
 					title="Instagram"
 					(click)="$event.stopPropagation()"
 				>
-					<span class="material-symbols-outlined text-[20px] flex items-center justify-center leading-none">
-						photo_camera
-					</span>
+					<i class="bi bi-instagram text-lg"></i>
 				</a>
 
 				<a
@@ -278,9 +238,7 @@
 					title="Telegram"
 					(click)="$event.stopPropagation()"
 				>
-					<span class="material-symbols-outlined text-[20px] flex items-center justify-center leading-none">
-						send
-					</span>
+					<i class="bi bi-telegram text-lg"></i>
 				</a>
 			</div>
 		</div>
@@ -350,9 +308,7 @@
 					rel="noopener noreferrer"
 					title="ORCID"
 				>
-					<span class="material-symbols-outlined text-[20px] flex items-center justify-center leading-none">
-						link
-					</span>
+					<i class="bi bi-link-45deg text-lg flex items-center justify-center leading-none"></i>
 				</a>
 
 				<button
@@ -361,9 +317,7 @@
 					[attr.title]="selected.correo || selected.email || ''"
 					(click)="copyEmail(selected.correo || selected.email, selected.id)"
 				>
-					<span class="material-symbols-outlined text-[20px] flex items-center justify-center leading-none">
-						mail
-					</span>
+					<i class="bi bi-envelope text-lg flex items-center justify-center leading-none"></i>
 				</button>
 
 				<a
@@ -374,16 +328,7 @@
 					rel="noopener noreferrer"
 					title="LinkedIn"
 				>
-					<svg
-						class="w-5 h-5"
-						viewBox="0 0 24 24"
-						fill="currentColor"
-						aria-hidden="true"
-					>
-						<path
-							d="M20.45 20.45h-3.56v-5.57c0-1.33-.03-3.04-1.85-3.04-1.85 0-2.13 1.45-2.13 2.94v5.67H9.35V9h3.41v1.56h.05c.48-.9 1.65-1.85 3.4-1.85 3.63 0 4.3 2.39 4.3 5.5v6.24zM5.34 7.43a2.06 2.06 0 1 1 0-4.12 2.06 2.06 0 0 1 0 4.12zM7.12 20.45H3.56V9h3.56v11.45z"
-						/>
-					</svg>
+					<i class="bi bi-linkedin text-lg"></i>
 				</a>
 
 				<a
@@ -394,9 +339,7 @@
 					rel="noopener noreferrer"
 					title="Facebook"
 				>
-					<span class="material-symbols-outlined text-[20px] flex items-center justify-center leading-none">
-						public
-					</span>
+					<i class="bi bi-facebook text-lg"></i>
 				</a>
 
 				<a
@@ -407,9 +350,7 @@
 					rel="noopener noreferrer"
 					title="Instagram"
 				>
-					<span class="material-symbols-outlined text-[20px] flex items-center justify-center leading-none">
-						photo_camera
-					</span>
+					<i class="bi bi-instagram text-lg"></i>
 				</a>
 
 				<a
@@ -420,9 +361,7 @@
 					rel="noopener noreferrer"
 					title="Telegram"
 				>
-					<span class="material-symbols-outlined text-[20px] flex items-center justify-center leading-none">
-						send
-					</span>
+					<i class="bi bi-telegram text-lg"></i>
 				</a>
 			</div>
 		</div>
