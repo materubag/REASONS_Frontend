@@ -3,15 +3,17 @@ import { RouterOutlet, RouterLink, RouterLinkActive } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { Auth } from '../../core/services/auth';
 import { NotificationService } from '../../core/services/notification.service';
+import { LoadingScreenComponent } from '../../shared/components';
 
 @Component({
   selector: 'app-admin-layout',
-  imports: [RouterOutlet, RouterLink, RouterLinkActive, CommonModule],
+  imports: [RouterOutlet, RouterLink, RouterLinkActive, CommonModule, LoadingScreenComponent],
   templateUrl: './admin-layout.html',
   styleUrl: './admin-layout.scss',
 })
 export class AdminLayout implements OnInit {
   isSidebarCollapsed = false;
+  isLoaded = false;
 
   private touchStartX = 0;
   private touchStartY = 0;
@@ -20,6 +22,11 @@ export class AdminLayout implements OnInit {
     if (typeof window !== 'undefined' && window.innerWidth < 768) {
       this.isSidebarCollapsed = true;
     }
+
+    // Fast and criteria-based transition for the admin dashboard (600ms visual check)
+    setTimeout(() => {
+      this.isLoaded = true;
+    }, 600);
   }
 
   closeSidebarMobile() {

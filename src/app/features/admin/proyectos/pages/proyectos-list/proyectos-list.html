@@ -50,9 +50,16 @@
 </div>
 
 <!-- Loading Spinner -->
-<div *ngIf="loading" class="flex flex-col items-center justify-center py-24">
-  <div class="w-12 h-12 border-4 border-primary border-t-transparent rounded-full animate-spin"></div>
-  <p class="text-sm text-slate-gray mt-4 font-semibold">Cargando proyectos...</p>
+<div *ngIf="loading" class="flex flex-col items-center justify-center py-20 px-8 bg-surface-container border border-border/10 rounded-xl max-w-md mx-auto shadow-sm my-6">
+  <div class="relative w-24 h-24 flex items-center justify-center mb-4">
+    <img 
+      src="/Logo_sin_fondo.png" 
+      alt="REASONS logo"
+      class="w-24 h-24 object-contain animate-[spin_4s_linear_infinite]"
+    />
+  </div>
+  <p class="font-bold text-xl text-deep-navy font-serif mb-1" style="font-family: 'Source Serif 4', 'Georgia', serif;">REASONS</p>
+  <p class="text-sm text-slate-gray text-center select-none">Cargando proyectos...</p>
 </div>
 
 <!-- Main Views -->
