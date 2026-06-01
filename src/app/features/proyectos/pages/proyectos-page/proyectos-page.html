@@ -1,0 +1,198 @@
+<main class="flex-grow w-full max-w-max-width mx-auto px-margin-mobile md:px-margin-desktop py-12 md:py-16">
+	<header class="mb-12 md:mb-16 max-w-3xl">
+		<h1 class="font-headline-xl-mobile md:font-headline-xl text-headline-xl-mobile md:text-headline-xl text-deep-navy mb-4">Proyectos de Investigación</h1>
+		<p class="font-body-lg text-body-lg text-slate-gray">Explorando la intersección entre la investigación académica de alto nivel, la sostenibilidad ambiental y la ingeniería moderna mediante metodologías basadas en datos y análisis rigurosos.</p>
+	</header>
+
+	<div class="mb-12 flex flex-col sm:flex-row gap-4 items-center bg-surface-container-low p-4 rounded-lg border border-cool-gray">
+		<div class="relative w-full sm:w-1/2 lg:w-1/3">
+			<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-cool-gray">search</span>
+			<input 
+				type="text" 
+				[(ngModel)]="searchTerm" 
+				(ngModelChange)="applyFilters()" 
+				placeholder="Buscar por título, descripción u objetivos..." 
+				class="w-full pl-10 pr-4 py-2 bg-surface-container-lowest border border-cool-gray rounded-DEFAULT font-body-md text-body-md text-on-surface focus:outline-none focus:border-secondary focus:ring-2 focus:ring-secondary/20 transition-all" 
+			/>
+		</div>
+		<div class="flex gap-2 w-full sm:w-auto overflow-x-auto pb-2 sm:pb-0 hide-scrollbar">
+			<button 
+				[class]="selectedYear === null ? 'bg-primary text-on-primary' : 'bg-surface-container text-deep-navy border border-muted-blue-gray hover:bg-surface-container-high'"
+				class="px-4 py-1.5 rounded-DEFAULT font-label-md text-label-md whitespace-nowrap transition-colors" 
+				(click)="selectYear(null)" 
+				type="button"
+			>
+				Todos los años
+			</button>
+			<button 
+				*ngFor="let year of availableYears"
+				[class]="selectedYear === year ? 'bg-primary text-on-primary' : 'bg-surface-container text-deep-navy border border-muted-blue-gray hover:bg-surface-container-high'"
+				class="px-4 py-1.5 rounded-DEFAULT font-label-md text-label-md whitespace-nowrap transition-colors" 
+				(click)="selectYear(year)" 
+				type="button"
+			>
+				{{ year }}
+			</button>
+		</div>
+	</div>
+
+	<div class="grid grid-cols-1 lg:grid-cols-12 gap-gutter">
+		<!-- Renderizado Dinámico de Proyectos -->
+		<ng-container *ngIf="filteredProyectos && filteredProyectos.length > 0">
+			<article *ngFor="let p of filteredProyectos; let first = first" [class]="first ? 'col-span-1 lg:col-span-12 bg-surface-container-lowest border border-muted-blue-gray rounded-DEFAULT overflow-hidden hover:shadow-[0px_4px_20px_rgba(8,31,77,0.08)] transition-shadow duration-300 flex flex-col md:flex-row mb-8' : 'lg:col-span-6 bg-surface-container-lowest border border-muted-blue-gray rounded-lg p-6 flex flex-col justify-between hover:shadow-custom-soft transition-shadow mb-8'">
+				<!-- Estilo Horizontal para el primer proyecto -->
+				<ng-container *ngIf="first">
+					<div *ngIf="p.imagen" class="w-full md:w-1/3 min-h-[240px] md:min-h-full bg-surface-container-low relative overflow-hidden">
+						<img [alt]="p.titulo" class="absolute inset-0 w-full h-full object-cover" [src]="resolveBackendUrl(p.imagen)" />
+					</div>
+					<div [class]="p.imagen ? 'p-6 md:p-8 w-full md:w-2/3 flex flex-col' : 'p-6 md:p-8 w-full flex flex-col'">
+						<div class="flex flex-wrap gap-2 mb-4">
+							<span *ngFor="let kw of p.keywords || []" class="bg-surface-container-highest text-deep-navy px-3 py-1 font-label-md text-label-md rounded-DEFAULT">{{ kw }}</span>
+							<span *ngIf="!p.keywords || p.keywords.length === 0" class="bg-surface-container-highest text-deep-navy px-3 py-1 font-label-md text-label-md rounded-DEFAULT">Sostenibilidad</span>
+						</div>
+						<h2 class="font-headline-lg text-headline-lg text-deep-navy mb-2">{{ p.titulo }}</h2>
+						<div class="mb-6 flex items-start gap-2">
+							<span class="material-symbols-outlined text-cool-gray text-xl mt-1">groups</span>
+							<div>
+								<span class="font-label-md text-label-md text-slate-gray block uppercase tracking-wider mb-1">Participantes</span>
+								<p class="font-body-sm text-body-sm text-deep-navy">{{ p.participantes || 'Grupo REASONS' }}</p>
+							</div>
+						</div>
+						<div class="space-y-6 flex-grow">
+							<div>
+								<h3 class="font-headline-md text-body-lg font-semibold text-secondary mb-2">Descripción</h3>
+								<p class="font-body-md text-body-md text-slate-gray">{{ p.descripcion }}</p>
+							</div>
+							<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+								<div class="bg-surface p-4 border border-cool-gray rounded-DEFAULT" *ngIf="p.objetivos">
+									<h3 class="font-headline-md text-body-md font-semibold text-secondary mb-2 flex items-center gap-2"><span class="material-symbols-outlined text-primary text-sm">flag</span> Objetivos</h3>
+									<p class="font-body-sm text-body-sm text-slate-gray" style="white-space: pre-line;">{{ getLimitedObjetivos(p.objetivos) }}</p>
+								</div>
+								<div class="bg-surface p-4 border border-cool-gray rounded-DEFAULT" *ngIf="p.resultados">
+									<h3 class="font-headline-md text-body-md font-semibold text-secondary mb-2 flex items-center gap-2"><span class="material-symbols-outlined text-primary text-sm">analytics</span> Resultados</h3>
+									<p class="font-body-sm text-body-sm text-slate-gray">{{ getLimitedResultados(p.resultados) }}</p>
+								</div>
+							</div>
+						</div>
+						<div class="mt-8 pt-6 border-t border-muted-blue-gray flex flex-col sm:flex-row justify-between items-stretch sm:items-center gap-4">
+							<span class="font-label-md text-label-md text-cool-gray">{{ p.estado || 'En curso' }}</span>
+							<a [routerLink]="['/proyectos', p.id]" class="font-label-md text-label-md text-primary flex items-center gap-1 hover:text-primary-container transition-colors cursor-pointer">Ver Reporte Completo <span class="material-symbols-outlined text-sm">arrow_forward</span></a>
+						</div>
+					</div>
+				</ng-container>
+ 
+				<!-- Estilo de Rejilla para los siguientes proyectos -->
+				<ng-container *ngIf="!first">
+					<div class="flex flex-col justify-between h-full">
+						<div>
+							<div class="flex gap-2 mb-3">
+								<span *ngFor="let kw of p.keywords || []" class="bg-surface-container-high text-deep-navy font-label-md text-label-md px-2 py-1 rounded">{{ kw }}</span>
+								<span *ngIf="!p.keywords || p.keywords.length === 0" class="bg-surface-container-high text-deep-navy font-label-md text-label-md px-2 py-1 rounded">Investigación</span>
+							</div>
+							<h2 class="font-headline-md text-headline-md text-deep-navy mb-2">{{ p.titulo }}</h2>
+							<p class="font-body-sm text-body-sm text-secondary font-medium mb-4" *ngIf="p.participantes">Participantes: {{ p.participantes }}</p>
+							<div class="mb-6">
+								<h3 class="font-label-md text-label-md text-primary uppercase tracking-wider mb-1">Descripción</h3>
+								<p class="font-body-sm text-body-sm text-on-surface-variant line-clamp-3">{{ p.descripcion }}</p>
+							</div>
+						</div>
+						<div class="pt-4 border-t border-surface-container-high flex flex-col sm:flex-row justify-between items-stretch sm:items-center gap-4">
+							<span class="font-label-md text-label-md text-cool-gray">{{ p.estado || 'En curso' }}</span>
+							<a [routerLink]="['/proyectos', p.id]" class="border border-primary text-primary hover:bg-primary hover:text-on-primary px-4 py-1.5 rounded-DEFAULT font-label-md text-label-md transition-colors flex items-center justify-center gap-2 cursor-pointer"><span class="material-symbols-outlined text-sm">open_in_new</span> Ver Reporte</a>
+						</div>
+					</div>
+				</ng-container>
+			</article>
+		</ng-container>
+
+		<!-- Empty State when no projects match filters -->
+		<ng-container *ngIf="proyectos && proyectos.length > 0 && filteredProyectos.length === 0">
+			<div class="col-span-full bg-surface-container-lowest border border-muted-blue-gray/30 rounded-xl p-12 text-center text-slate-gray w-full flex flex-col items-center">
+				<span class="material-symbols-outlined text-5xl block mb-2 opacity-50">drafts</span>
+				<p class="font-semibold text-deep-navy">No se encontraron proyectos</p>
+				<p class="text-xs mt-1 text-slate-gray">Prueba a escribir otro término de búsqueda o cambia el filtro de año.</p>
+			</div>
+		</ng-container>
+
+		<!-- Proyectos Estáticos Traducidos al Español de Respaldo -->
+		<ng-container *ngIf="!proyectos || proyectos.length === 0">
+			<!-- Proyecto Principal -->
+			<article class="col-span-1 lg:col-span-12 bg-surface-container-lowest border border-muted-blue-gray rounded-DEFAULT overflow-hidden hover:shadow-[0px_4px_20px_rgba(8,31,77,0.08)] transition-shadow duration-300 flex flex-col md:flex-row mb-8">
+				<div class="w-full md:w-1/3 min-h-[240px] md:min-h-full bg-surface-container-low relative overflow-hidden">
+					<img alt="Modelado de sostenibilidad urbana" class="absolute inset-0 w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAN4xtV7W_Qz-_6Dn-kbs1Pf7Q-QwUlCeiMHarJEjEik-5SIlhwkbwNr4IaUZAJUcLXRtObZ_vEX7NMrjwUvmMsEe6tqKjlG5rEksCosZuweHwxPZH1UPk-5chSf4ftkdnhuURrEuKUvsIrsT1b9XFap9R-xX6217lS3CwUIExIKCaExl2wXTgXVMhzFzQvk8Sc44Id7nuyH2_szb4t5MJcRvKdVFc4Vdjt2JkO49G_3z7FW-s26bcCReVdHGlsw4a4Th6WlOvnM6w8" />
+				</div>
+				<div class="p-6 md:p-8 w-full md:w-2/3 flex flex-col">
+					<div class="flex flex-wrap gap-2 mb-4">
+						<span class="bg-surface-container-highest text-deep-navy px-3 py-1 font-label-md text-label-md rounded-DEFAULT">Sostenibilidad</span>
+						<span class="bg-surface-container-highest text-deep-navy px-3 py-1 font-label-md text-label-md rounded-DEFAULT">Planificación Urbana</span>
+					</div>
+					<h2 class="font-headline-lg text-headline-lg text-deep-navy mb-2">Estrategias de Mitigación de la Isla de Calor Urbana</h2>
+					<div class="mb-6 flex items-start gap-2">
+						<span class="material-symbols-outlined text-cool-gray text-xl mt-1">groups</span>
+						<div>
+							<span class="font-label-md text-label-md text-slate-gray block uppercase tracking-wider mb-1">Participantes</span>
+							<p class="font-body-sm text-body-sm text-deep-navy">Dr. Sarah Jenkins (PI), Mark Owens (Postdoc), Elena Rostova (PhD Candidate)</p>
+						</div>
+					</div>
+					<div class="space-y-6 flex-grow">
+						<div>
+							<h3 class="font-headline-md text-body-lg font-semibold text-secondary mb-2">Descripción</h3>
+							<p class="font-body-md text-body-md text-slate-gray">Este estudio longitudinal investiga la eficacia de la infraestructura verde integrada en corredores urbanos de alta densidad. Mediante el despliegue de una red de sensores microclimáticos en tres áreas metropolitanas, estamos desarrollando modelos predictivos para evaluar el potencial de enfriamiento.</p>
+						</div>
+						<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+							<div class="bg-surface p-4 border border-cool-gray rounded-DEFAULT">
+								<h3 class="font-headline-md text-body-md font-semibold text-secondary mb-2 flex items-center gap-2"><span class="material-symbols-outlined text-primary text-sm">flag</span> Objetivos</h3>
+								<ul class="list-disc list-inside font-body-sm text-body-sm text-slate-gray space-y-1">
+									<li>Cuantificar la variación de la temperatura superficial</li>
+									<li>Modelar la impedancia del flujo de aire de la vegetación</li>
+									<li>Desarrollar directrices de zonificación urbana accionables</li>
+								</ul>
+							</div>
+							<div class="bg-surface p-4 border border-cool-gray rounded-DEFAULT">
+								<h3 class="font-headline-md text-body-md font-semibold text-secondary mb-2 flex items-center gap-2"><span class="material-symbols-outlined text-primary text-sm">analytics</span> Resultados</h3>
+								<p class="font-body-sm text-body-sm text-slate-gray">Los datos iniciales indican una reducción promedio de 2.4°C en la temperatura ambiente dentro de los 50 metros de las instalaciones de techos verdes de alta densidad durante los meses pico de verano.</p>
+							</div>
+						</div>
+					</div>
+					<div class="mt-8 pt-6 border-t border-muted-blue-gray flex flex-col sm:flex-row justify-between items-stretch sm:items-center gap-4">
+						<span class="font-label-md text-label-md text-cool-gray">En curso • Finalización estimada: Q4 2025</span>
+						<button class="font-label-md text-label-md text-primary flex items-center gap-1 hover:text-primary-container transition-colors" type="button">Ver Reporte Completo <span class="material-symbols-outlined text-sm">arrow_forward</span></button>
+					</div>
+				</div>
+			</article>
+
+			<!-- Proyectos Secundarios -->
+			<article class="lg:col-span-6 bg-surface-container-lowest border border-muted-blue-gray rounded-lg p-6 flex flex-col justify-between hover:shadow-custom-soft transition-shadow mb-8">
+				<div>
+					<div class="flex gap-2 mb-3"><span class="bg-surface-container-high text-deep-navy font-label-md text-label-md px-2 py-1 rounded">Gestión del Agua</span></div>
+					<h2 class="font-headline-md text-headline-md text-deep-navy mb-2">Modelado Predictivo de las Tasas de Agotamiento de Acuíferos en Regiones Áridas</h2>
+					<p class="font-body-sm text-body-sm text-secondary font-medium mb-4">Autores: M. Chen, L. Thompson</p>
+					<div class="mb-6">
+						<h3 class="font-label-md text-label-md text-primary uppercase tracking-wider mb-1">Resumen</h3>
+						<p class="font-body-sm text-body-sm text-on-surface-variant line-clamp-3">Utilizando algoritmos de aprendizaje automático aplicados a décadas de datos hidrológicos, este artículo predice el agotamiento acelerado de acuíferos en zonas áridas específicas. El modelo considera varios escenarios de cambio climático y sugiere intervenciones de política inmediatas para el uso del agua en la agricultura.</p>
+					</div>
+				</div>
+				<div class="pt-4 border-t border-surface-container-high flex flex-col sm:flex-row justify-between items-stretch sm:items-center gap-4">
+					<p class="font-body-sm text-body-sm text-deep-navy">Chen, M., &amp; Thompson, L. (2023). <em>Hydrological Resource Review</em>, 15(2), 45-60.</p>
+					<button class="border border-primary text-primary hover:bg-primary hover:text-on-primary px-4 py-1.5 rounded-DEFAULT font-label-md text-label-md transition-colors flex items-center justify-center gap-2" type="button"><span class="material-symbols-outlined text-sm">open_in_new</span> Ver Artículo</button>
+				</div>
+			</article>
+
+			<article class="lg:col-span-6 bg-surface-container-lowest border border-muted-blue-gray rounded-lg p-6 flex flex-col justify-between hover:shadow-custom-soft transition-shadow mb-8">
+				<div>
+					<div class="flex gap-2 mb-3"><span class="bg-surface-container-high text-deep-navy font-label-md text-label-md px-2 py-1 rounded">Ciencia de Materiales</span><span class="bg-surface-container-high text-deep-navy font-label-md text-label-md px-2 py-1 rounded">Economía Circular</span></div>
+					<h2 class="font-headline-md text-headline-md text-deep-navy mb-2">Análisis de Ciclo de Vida de Polímeros Biobasados en Aplicaciones Industriales</h2>
+					<p class="font-body-sm text-body-sm text-secondary font-medium mb-4">Autores: Dr. R. Gomez, H. Kim</p>
+					<div class="mb-6">
+						<h3 class="font-label-md text-label-md text-primary uppercase tracking-wider mb-1">Resumen</h3>
+						<p class="font-body-sm text-body-sm text-on-surface-variant line-clamp-3">Una evaluación exhaustiva del impacto ambiental de los nuevos polímeros biobasados desarrollados en comparación con los plásticos petroquímicos tradicionales a lo largo de todo su ciclo de vida. Los resultados indican una reducción del 40% en la huella de carbono durante la producción, aunque la infraestructura de compostaje al final de su vida útil sigue siendo un desafío.</p>
+					</div>
+				</div>
+				<div class="pt-4 border-t border-surface-container-high flex flex-col sm:flex-row justify-between items-stretch sm:items-center gap-4">
+					<p class="font-body-sm text-body-sm text-deep-navy">Gomez, R., &amp; Kim, H. (2023). <em>Sustainable Materials Today</em>, 8(4), 210-225.</p>
+					<button class="border border-primary text-primary hover:bg-primary hover:text-on-primary px-4 py-1.5 rounded-DEFAULT font-label-md text-label-md transition-colors flex items-center justify-center gap-2" type="button"><span class="material-symbols-outlined text-sm">open_in_new</span> Ver Artículo</button>
+				</div>
+			</article>
+		</ng-container>
+	</div>
+</main>

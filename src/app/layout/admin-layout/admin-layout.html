@@ -1,0 +1,248 @@
+<app-loading-screen [isLoaded]="isLoaded"></app-loading-screen>
+
+<div class="flex h-screen bg-background text-on-surface font-sans overflow-hidden relative">
+  <!-- Mobile Sidebar Overlay (Backdrop) -->
+  <div 
+    *ngIf="!isSidebarCollapsed"
+    (click)="closeSidebarMobile()"
+    class="md:hidden fixed inset-0 bg-black/50 z-40 transition-opacity duration-300"
+  ></div>
+
+  <!-- Sidebar -->
+  <aside 
+    [ngClass]="{
+      'w-64 md:translate-x-0': !isSidebarCollapsed, 
+      'w-16 md:translate-x-0': isSidebarCollapsed,
+      'translate-x-0': !isSidebarCollapsed,
+      'translate-x-full': isSidebarCollapsed
+    }"
+    class="fixed md:relative top-0 right-0 md:left-0 md:right-auto h-full flex flex-col bg-surface-container-low border-l md:border-r md:border-l-0 border-muted-blue-gray/30 transition-all duration-300 ease-in-out z-50 md:z-20 shadow-xl md:shadow-none"
+  >
+    <!-- Brand / Logo Area -->
+    <div 
+      [ngClass]="{'justify-center px-2': isSidebarCollapsed, 'justify-between px-4': !isSidebarCollapsed}"
+      class="flex items-center h-16 bg-surface-container-high border-b border-muted-blue-gray/30 w-full"
+    >
+      <div *ngIf="!isSidebarCollapsed" class="flex items-center space-x-3 overflow-hidden">
+        <!-- Logo Icon -->
+        <img src="/Logo_sin_fondo.png" alt="REASONS Logo" class="w-9 h-9 object-contain flex-shrink-0" />
+        <!-- Logo Text -->
+        <span class="font-bold text-lg text-primary whitespace-nowrap">
+          REASONS
+        </span>
+      </div>
+      <!-- Toggle button for large screens -->
+      <button 
+        *ngIf="!isSidebarCollapsed"
+        (click)="toggleSidebar()" 
+        class="hidden md:flex items-center justify-center p-1.5 rounded-lg text-slate-gray hover:bg-surface-container-high hover:text-primary transition-colors"
+        title="Ocultar panel"
+      >
+        <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+        </svg>
+      </button>
+      <button 
+        *ngIf="isSidebarCollapsed"
+        (click)="toggleSidebar()" 
+        class="hidden md:flex items-center justify-center p-1.5 rounded-lg text-slate-gray hover:bg-surface-container-high hover:text-primary transition-colors"
+        title="Mostrar panel"
+      >
+        <svg class="w-5 h-5 mx-auto" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+        </svg>
+      </button>
+    </div>
+
+    <!-- Navigation Links -->
+    <nav class="flex-1 px-2 py-4 space-y-1 overflow-y-auto">
+      <!-- Investigadores -->
+      <a 
+        routerLink="/admin/investigadores" 
+        (click)="closeSidebarMobile()"
+        routerLinkActive="bg-surface-container-lowest text-primary font-semibold border-l-4 border-primary shadow-sm"
+        [ngClass]="{'justify-center': isSidebarCollapsed, 'px-3': !isSidebarCollapsed}"
+        class="flex items-center py-2.5 rounded-DEFAULT text-deep-navy/90 hover:bg-surface-container-high hover:text-primary transition-all group border-l-4 border-transparent"
+        [title]="isSidebarCollapsed ? 'Investigadores' : ''"
+      >
+        <svg 
+          [ngClass]="{'mr-0': isSidebarCollapsed, 'mr-3': !isSidebarCollapsed}"
+          class="w-5 h-5 flex-shrink-0 text-slate-gray group-hover:text-primary transition-colors" fill="none" viewBox="0 0 24 24" stroke="currentColor"
+        >
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z" />
+        </svg>
+        <span *ngIf="!isSidebarCollapsed" class="truncate">Investigadores</span>
+      </a>
+
+      <!-- Proyectos -->
+      <a 
+        routerLink="/admin/proyectos" 
+        (click)="closeSidebarMobile()"
+        routerLinkActive="bg-surface-container-lowest text-primary font-semibold border-l-4 border-primary shadow-sm"
+        [ngClass]="{'justify-center': isSidebarCollapsed, 'px-3': !isSidebarCollapsed}"
+        class="flex items-center py-2.5 rounded-DEFAULT text-deep-navy/90 hover:bg-surface-container-high hover:text-primary transition-all group border-l-4 border-transparent"
+        [title]="isSidebarCollapsed ? 'Proyectos' : ''"
+      >
+        <svg 
+          [ngClass]="{'mr-0': isSidebarCollapsed, 'mr-3': !isSidebarCollapsed}"
+          class="w-5 h-5 flex-shrink-0 text-slate-gray group-hover:text-primary transition-colors" fill="none" viewBox="0 0 24 24" stroke="currentColor"
+        >
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01" />
+        </svg>
+        <span *ngIf="!isSidebarCollapsed" class="truncate">Proyectos</span>
+      </a>
+
+      <!-- Publicaciones -->
+      <a 
+        routerLink="/admin/publicaciones" 
+        (click)="closeSidebarMobile()"
+        routerLinkActive="bg-surface-container-lowest text-primary font-semibold border-l-4 border-primary shadow-sm"
+        [ngClass]="{'justify-center': isSidebarCollapsed, 'px-3': !isSidebarCollapsed}"
+        class="flex items-center py-2.5 rounded-DEFAULT text-deep-navy/90 hover:bg-surface-container-high hover:text-primary transition-all group border-l-4 border-transparent"
+        [title]="isSidebarCollapsed ? 'Publicaciones' : ''"
+      >
+        <svg 
+          [ngClass]="{'mr-0': isSidebarCollapsed, 'mr-3': !isSidebarCollapsed}"
+          class="w-5 h-5 flex-shrink-0 text-slate-gray group-hover:text-primary transition-colors" fill="none" viewBox="0 0 24 24" stroke="currentColor"
+        >
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
+        </svg>
+        <span *ngIf="!isSidebarCollapsed" class="truncate">Publicaciones</span>
+      </a>
+
+      <!-- Contactos -->
+      <a 
+        routerLink="/admin/contactos" 
+        (click)="closeSidebarMobile()"
+        routerLinkActive="bg-surface-container-lowest text-primary font-semibold border-l-4 border-primary shadow-sm"
+        [ngClass]="{'justify-center': isSidebarCollapsed, 'px-3': !isSidebarCollapsed}"
+        class="flex items-center py-2.5 rounded-DEFAULT text-deep-navy/90 hover:bg-surface-container-high hover:text-primary transition-all group border-l-4 border-transparent"
+        [title]="isSidebarCollapsed ? 'Contacto' : ''"
+      >
+        <svg 
+          [ngClass]="{'mr-0': isSidebarCollapsed, 'mr-3': !isSidebarCollapsed}"
+          class="w-5 h-5 flex-shrink-0 text-slate-gray group-hover:text-primary transition-colors" fill="none" viewBox="0 0 24 24" stroke="currentColor"
+        >
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+        </svg>
+        <span *ngIf="!isSidebarCollapsed" class="truncate">Contactos</span>
+      </a>
+
+      <!-- Grupo de Información -->
+      <a 
+        routerLink="/admin/grupo-informacion" 
+        (click)="closeSidebarMobile()"
+        routerLinkActive="bg-surface-container-lowest text-primary font-semibold border-l-4 border-primary shadow-sm"
+        [ngClass]="{'justify-center': isSidebarCollapsed, 'px-3': !isSidebarCollapsed}"
+        class="flex items-center py-2.5 rounded-DEFAULT text-deep-navy/90 hover:bg-surface-container-high hover:text-primary transition-all group border-l-4 border-transparent"
+        [title]="isSidebarCollapsed ? 'Grupo Información' : ''"
+      >
+        <svg 
+          [ngClass]="{'mr-0': isSidebarCollapsed, 'mr-3': !isSidebarCollapsed}"
+          class="w-5 h-5 flex-shrink-0 text-slate-gray group-hover:text-primary transition-colors" fill="none" viewBox="0 0 24 24" stroke="currentColor"
+        >
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+        </svg>
+        <span *ngIf="!isSidebarCollapsed" class="truncate">Grupo Info & Líneas</span>
+      </a>
+    </nav>
+
+    <!-- Mobile User Profile & Logout (Visible only on mobile) -->
+    <div class="md:hidden p-4 border-t border-muted-blue-gray/30 bg-surface-container-high/50 flex flex-col gap-4">
+      <div class="flex items-center space-x-3">
+        <div class="w-10 h-10 rounded-full bg-primary-fixed text-on-primary-fixed font-bold flex items-center justify-center border-2 border-primary-fixed-dim shadow-inner">
+          {{ userInitials }}
+        </div>
+        <div class="overflow-hidden flex-1">
+          <p class="text-sm font-semibold text-deep-navy leading-none truncate">{{ currentUser?.nombre || 'Administrador' }}</p>
+          <p class="text-xs text-slate-gray mt-1 truncate">{{ currentUser?.correo || 'reasons@admin.com' }}</p>
+        </div>
+      </div>
+      <button 
+        (click)="logout(); closeSidebarMobile()" 
+        class="w-full inline-flex items-center justify-center gap-2.5 px-4 py-2 bg-error/10 hover:bg-error/20 text-error font-semibold rounded-DEFAULT transition-colors shadow-sm cursor-pointer border border-error/20 text-sm"
+      >
+        <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
+        </svg>
+        Cerrar Sesión
+      </button>
+    </div>
+
+    <!-- Footer Area (Back to public) -->
+    <div class="p-2 border-t border-muted-blue-gray/30 bg-surface-container-high">
+      <a 
+        routerLink="/" 
+        (click)="closeSidebarMobile()"
+        [ngClass]="{'justify-center': isSidebarCollapsed, 'px-3': !isSidebarCollapsed}"
+        class="flex items-center py-2 rounded-DEFAULT text-slate-gray hover:bg-surface-container-lowest hover:text-primary transition-all"
+        [title]="isSidebarCollapsed ? 'Volver al Sitio' : ''"
+      >
+        <svg 
+          [ngClass]="{'mr-0': isSidebarCollapsed, 'mr-3': !isSidebarCollapsed}"
+          class="w-5 h-5 flex-shrink-0 text-slate-gray" fill="none" viewBox="0 0 24 24" stroke="currentColor"
+        >
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l9-9 9 9M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
+        </svg>
+        <span *ngIf="!isSidebarCollapsed" class="text-sm font-medium truncate">Volver al Sitio</span>
+      </a>
+    </div>
+  </aside>
+
+  <!-- Main Content Wrapper -->
+  <div class="flex-1 flex flex-col overflow-hidden">
+    <!-- Top Header -->
+    <header class="flex items-center justify-between h-16 px-6 bg-surface-container-lowest border-b border-muted-blue-gray/30 shadow-sm z-10">
+      <!-- Title -->
+      <div class="flex items-center space-x-4">
+        <h2 class="text-xl font-bold text-deep-navy tracking-tight">Panel de Administración</h2>
+      </div>
+
+      <!-- Header Actions -->
+      <div class="flex items-center space-x-4">
+        <!-- Desktop User profile & Logout (Hidden on mobile) -->
+        <div class="hidden md:flex items-center space-x-4">
+          <!-- Logout Button -->
+          <button 
+            (click)="logout()" 
+            class="p-2 rounded-full text-error hover:bg-error/10 transition-all flex items-center justify-center cursor-pointer"
+            title="Cerrar Sesión"
+          >
+            <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
+            </svg>
+          </button>
+
+          <!-- User Profile Details -->
+          <div class="flex items-center space-x-3">
+            <div class="text-right hidden lg:block">
+              <p class="text-sm font-semibold text-deep-navy leading-none">{{ currentUser?.nombre || 'Administrador' }}</p>
+              <p class="text-xs text-slate-gray mt-1">{{ currentUser?.correo || 'reasons@admin.com' }}</p>
+            </div>
+            <div class="w-10 h-10 rounded-full bg-primary-fixed text-on-primary-fixed font-bold flex items-center justify-center border-2 border-primary-fixed-dim shadow-inner" [title]="currentUser?.nombre || 'Administrador'">
+              {{ userInitials }}
+            </div>
+          </div>
+        </div>
+
+        <!-- Mobile Hamburger Toggle Button (Hidden on desktop) -->
+        <button 
+          (click)="toggleSidebar()" 
+          class="p-2 rounded-lg text-slate-gray hover:bg-surface-container hover:text-primary transition-colors md:hidden cursor-pointer"
+          title="Menú"
+        >
+          <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+          </svg>
+        </button>
+      </div>
+    </header>
+
+    <!-- Main Content Area -->
+    <main class="flex-grow overflow-y-auto bg-background p-6">
+      <div class="max-w-7xl mx-auto">
+        <router-outlet></router-outlet>
+      </div>
+    </main>
+  </div>
+</div>

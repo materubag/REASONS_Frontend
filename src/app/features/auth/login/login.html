@@ -1,0 +1,130 @@
+<div class="min-h-screen bg-background flex flex-col justify-center items-center px-margin-mobile py-12 font-sans relative overflow-hidden border-b border-muted-blue-gray">
+  <!-- Top Decorative Brand Badge -->
+  <div class="w-full max-w-md flex flex-col items-center mb-6 animate-fade-in">
+    <!-- Brand Logo and Name next to each other -->
+    <div class="flex items-center justify-center gap-3 mb-4">
+      <img src="/Logo_sin_fondo.png" alt="REASONS Logo" class="h-12 w-auto object-contain" />
+      <h1 class="font-headline-lg text-headline-lg text-primary font-bold mb-0">REASONS</h1>
+    </div>
+    <p class="font-body-sm text-body-sm text-slate-gray text-center max-w-xs">Research in Engineering and Advanced Sustainable Operations, Nature, and Society</p>
+  </div>
+
+  <!-- Crisp Login Card -->
+  <div class="w-full max-w-md bg-surface-container-lowest border border-muted-blue-gray rounded-DEFAULT shadow-[0px_4px_20px_rgba(8,31,77,0.06)] p-8 md:p-10 transition-all hover:border-primary duration-300">
+    <div class="mb-6">
+      <h2 class="font-headline-sm text-headline-sm text-deep-navy mb-1.5 flex items-center gap-2">
+        <span class="material-symbols-outlined text-primary">lock</span>
+        Iniciar Sesión
+      </h2>
+      <p class="font-body-sm text-body-sm text-slate-gray">Ingresa tus credenciales de administrador para acceder al panel de control.</p>
+    </div>
+
+    <!-- Backend Error Message Alert -->
+    <div *ngIf="errorMessage" class="mb-5 p-4 bg-error-container border border-error/30 rounded-DEFAULT text-error text-xs font-semibold flex items-start gap-2.5 animate-shake">
+      <span class="material-symbols-outlined text-[18px] text-error flex-shrink-0">warning</span>
+      <span>{{ errorMessage }}</span>
+    </div>
+
+    <form [formGroup]="form" (ngSubmit)="onSubmit()" class="space-y-5">
+      <!-- Email Input -->
+      <div class="space-y-1">
+        <label for="correo" class="block font-label-md text-label-md text-deep-navy uppercase tracking-wider">Correo Electrónico *</label>
+        <div class="relative">
+          <input 
+            id="correo"
+            type="email" 
+            formControlName="correo"
+            placeholder="admin@reasons@gmail.com"
+            [ngClass]="{
+              'border-error focus:ring-error/20': form.get('correo')?.touched && form.get('correo')?.invalid,
+              'border-muted-blue-gray/50 focus:border-primary': !(form.get('correo')?.touched && form.get('correo')?.invalid)
+            }"
+            class="w-full bg-surface-container-low border rounded-DEFAULT px-4 py-3 text-on-surface focus:outline-none focus:ring-1 transition-all font-body-md"
+          >
+        </div>
+        <!-- Validation Warnings -->
+        <div *ngIf="form.get('correo')?.touched && form.get('correo')?.invalid" class="text-xs text-error font-medium mt-1">
+          <span *ngIf="form.get('correo')?.errors?.['required']">El correo electrónico es requerido.</span>
+          <span *ngIf="form.get('correo')?.errors?.['email']">Por favor ingresa un formato de correo válido.</span>
+        </div>
+      </div>
+
+      <!-- Password Input -->
+      <div class="space-y-1">
+        <label for="password" class="block font-label-md text-label-md text-deep-navy uppercase tracking-wider">Contraseña *</label>
+        <div class="relative">
+          <input 
+            id="password"
+            type="password" 
+            formControlName="password"
+            placeholder="••••••••"
+            [ngClass]="{
+              'border-error focus:ring-error/20': form.get('password')?.touched && form.get('password')?.invalid,
+              'border-muted-blue-gray/50 focus:border-primary': !(form.get('password')?.touched && form.get('password')?.invalid)
+            }"
+            class="w-full bg-surface-container-low border rounded-DEFAULT px-4 py-3 text-on-surface focus:outline-none focus:ring-1 transition-all font-body-md"
+          >
+        </div>
+        <!-- Validation Warnings -->
+        <div *ngIf="form.get('password')?.touched && form.get('password')?.invalid" class="text-xs text-error font-medium mt-1">
+          <span *ngIf="form.get('password')?.errors?.['required']">La contraseña es requerida.</span>
+          <span *ngIf="form.get('password')?.errors?.['minlength']">La contraseña debe tener al menos 6 caracteres.</span>
+        </div>
+      </div>
+
+      <!-- Extra links (Go Back to Public Site) -->
+      <div class="flex items-center justify-between text-xs pt-1">
+        <a 
+          routerLink="/" 
+          class="text-primary hover:text-primary-dark font-semibold hover:underline flex items-center gap-1 transition-colors"
+        >
+          <span class="material-symbols-outlined text-[16px]">arrow_back</span>
+          Volver al sitio público
+        </a>
+      </div>
+
+      <!-- Submit Button -->
+      <button 
+        type="submit"
+        [disabled]="form.invalid || isSubmitting"
+        [ngClass]="{
+          'opacity-60 cursor-not-allowed bg-slate-gray text-white border border-transparent dark:bg-transparent dark:text-primary/40 dark:border-primary/20': form.invalid || isSubmitting,
+          'bg-slate-gray text-white border border-transparent hover:bg-surface-container hover:text-deep-navy hover:border-slate-gray/30 active:scale-[0.98] dark:bg-transparent dark:text-primary dark:border-primary dark:hover:bg-primary/10': !(form.invalid || isSubmitting)
+        }"
+        class="w-full font-semibold py-3 rounded-DEFAULT transition-all shadow-sm flex items-center justify-center font-label-md text-label-md uppercase tracking-wider"
+      >
+        <span *ngIf="isSubmitting" class="w-4 h-4 border-2 border-current border-t-transparent rounded-full animate-spin mr-2"></span>
+        <span>{{ isSubmitting ? 'Ingresando...' : 'Iniciar Sesión' }}</span>
+      </button>
+    </form>
+
+    <!-- Divider -->
+    <div class="relative flex items-center justify-center my-6">
+      <div class="absolute inset-0 flex items-center">
+        <div class="w-full border-t border-muted-blue-gray/30"></div>
+      </div>
+      <span class="relative px-3 bg-surface-container-lowest text-[10px] text-slate-gray font-semibold uppercase tracking-wider">O accede con</span>
+    </div>
+
+    <!-- Microsoft Login Button -->
+    <button 
+      type="button"
+      (click)="loginWithMicrosoft()"
+      class="btn-microsoft w-full bg-white text-slate-700 border border-slate-300 hover:bg-slate-50 hover:border-slate-400 active:scale-[0.98] font-semibold py-3 rounded-DEFAULT transition-all shadow-sm flex items-center justify-center gap-2.5 font-label-md text-label-md uppercase tracking-wider text-black"
+    >
+      <!-- Microsoft Color Logo (SVG) -->
+      <svg class="w-5 h-5 flex-shrink-0" viewBox="0 0 23 23">
+        <path fill="#f35325" d="M1 1h10v10H1z"/>
+        <path fill="#81bc06" d="M12 1h10v10H12z"/>
+        <path fill="#05a6f0" d="M1 12h10v10H1z"/>
+        <path fill="#ffba08" d="M12 12h10v10H12z"/>
+      </svg>
+      <span>Microsoft Office 365</span>
+    </button>
+  </div>
+  
+  <!-- Footer Brand Copyright -->
+  <div class="text-center mt-8">
+    <p class="text-xs text-slate-gray">© 2026 REASONS. Universidad Técnica de Ambato.</p>
+  </div>
+</div>

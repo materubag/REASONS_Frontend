@@ -1,0 +1,154 @@
+import { Component, OnInit } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { ApiService, InvestigadoresStoreService, HomeStoreService } from '../../../../core/services';
+import { GrupoInformacion, Investigador, LineaInvestigacion, Proyecto, Publicacion } from '../../../../core/models';
+import { resolveBackendUrl } from '../../../../core/utils/url';
+
+@Component({
+  selector: 'app-home-page',
+  standalone: true,
+  imports: [CommonModule],
+  templateUrl: './home-page.html',
+  styleUrl: './home-page.scss',
+})
+export class HomePageComponent implements OnInit {
+  grupoInformacion?: GrupoInformacion;
+  lineasInvestigacion: LineaInvestigacion[] = [];
+  director?: Investigador;
+  subdirector?: Investigador;
+  copiedEmailKey: 'director' | 'subdirector' | null = null;
+  primerProyecto?: Proyecto;
+  primeraPublicacion?: Publicacion;
+
+  constructor(
+    private apiService: ApiService,
+    private investigadoresStore: InvestigadoresStoreService,
+    private homeStore: HomeStoreService
+  ) {}
+
+  ngOnInit(): void {
+    this.loadGrupoInformacion();
+    this.loadLineasInvestigacion();
+    this.loadDirectivos();
+    this.loadDestacados();
+  }
+
+  private loadDestacados(): void {
+    this.apiService.getProyectos(1, 1).subscribe({
+      next: (response) => {
+        if (response.success && response.data.length > 0) {
+          this.primerProyecto = response.data[0];
+        }
+      },
+      error: (error) => {
+        console.error('Error loading primer proyecto:', error);
+      },
+    });
+
+    this.apiService.getPublicaciones(1, 1).subscribe({
+      next: (response) => {
+        if (response.success && response.data.length > 0) {
+          this.primeraPublicacion = response.data[0];
+        }
+      },
+      error: (error) => {
+        console.error('Error loading primera publicacion:', error);
+      },
+    });
+  }
+
+  private loadGrupoInformacion(): void {
+    this.homeStore.getGrupoInformacion(1, 1).subscribe({
+      next: (response) => {
+        if (response.success && response.data.length > 0) {
+          this.grupoInformacion = response.data[0];
+        }
+      },
+      error: (error) => {
+        console.error('Error loading grupo informacion:', error);
+      },
+    });
+  }
+
+  private loadLineasInvestigacion(): void {
+    this.homeStore.getLineasInvestigacion(1, 3).subscribe({
+      next: (response) => {
+        if (response.success) {
+          this.lineasInvestigacion = [...response.data].sort((a, b) => a.id - b.id);
+        }
+      },
+      error: (error) => {
+        console.error('Error loading lineas de investigacion:', error);
+      },
+    });
+  }
+
+  private loadDirectivos(): void {
+    this.investigadoresStore.getInvestigadoresPage(1, 20).subscribe({
+      next: (response) => {
+        if (response.success) {
+          const investigadores = [...response.data].sort((a, b) => a.id - b.id);
+          const normalize = (value?: string) => (value || '').toLowerCase();
+          this.director = investigadores.find((item) => {
+            const cargo = normalize(item.cargo);
+            return cargo.includes('director') && !cargo.includes('subdirector');
+          }) || investigadores.find((item) => item.id === 1);
+          this.subdirector = investigadores.find((item) => {
+            const cargo = normalize(item.cargo);
+            return cargo.includes('subdirector');
+          }) || investigadores.find((item) => item.id === 2);
+        }
+      },
+      error: (error) => {
+        console.error('Error loading investigadores:', error);
+      },
+    });
+  }
+
+  copyEmail(email: string | undefined, key: 'director' | 'subdirector'): void {
+    if (!email) {
+      return;
+    }
+    navigator.clipboard
+      .writeText(email)
+      .then(() => {
+        this.copiedEmailKey = key;
+        setTimeout(() => {
+          if (this.copiedEmailKey === key) {
+            this.copiedEmailKey = null;
+          }
+        }, 1500);
+      })
+      .catch(() => {
+        this.copiedEmailKey = null;
+      });
+  }
+
+  resolveBackendUrl(path?: string | null): string {
+    return resolveBackendUrl(path);
+  }
+
+  getLimitedObjetivos(objetivos?: string): string {
+    if (!objetivos) return '';
+    const list = objetivos.split('\n').map(o => o.trim()).filter(Boolean);
+    return list.slice(0, 3).join('\n');
+  }
+
+  getLimitedResultados(resultados?: string): string {
+    if (!resultados) return '';
+    const plainText = resultados.replace(/<[^>]*>/g, ' ').replace(/\s+/g, ' ').trim();
+    if (plainText.length <= 160) {
+      return plainText;
+    }
+    return plainText.substring(0, 160) + '...';
+  }
+
+  getLimitedResumen(resumen?: string, limit: number = 300): string {
+    if (!resumen) return '';
+    const plainText = resumen.replace(/<[^>]*>/g, ' ').replace(/\s+/g, ' ').trim();
+    if (plainText.length <= limit) {
+      return plainText;
+    }
+    return plainText.substring(0, limit) + '...';
+  }
+}

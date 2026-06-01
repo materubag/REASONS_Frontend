@@ -1,0 +1,141 @@
+<main class="flex-grow w-full max-w-max-width mx-auto px-margin-mobile md:px-margin-desktop py-12 md:py-16">
+  <header class="mb-12 md:mb-16 max-w-3xl">
+    <h1
+      class="font-headline-xl-mobile md:font-headline-xl text-headline-xl-mobile md:text-headline-xl text-deep-navy mb-4">
+      Contacto REASONS</h1>
+    <p class="font-body-lg text-body-lg text-slate-gray">Póngase en contacto con nuestro grupo de investigación para
+      coordinar colaboraciones, realizar consultas sobre nuestras publicaciones o conocer más sobre nuestros proyectos
+      de sostenibilidad en curso.</p>
+  </header>
+
+  <div class="grid grid-cols-1 lg:grid-cols-12 gap-gutter">
+    <section class="lg:col-span-7 bg-surface-container-lowest border border-muted-blue-gray rounded-xl p-6 md:p-8">
+      <h2 class="font-headline-md text-headline-md text-deep-navy mb-6">Envíanos un mensaje</h2>
+      <form [formGroup]="form" (ngSubmit)="onSubmit()" class="space-y-6">
+        <!-- Success Alert -->
+        <div *ngIf="submitSuccess" class="bg-primary/10 border border-primary/20 text-primary p-4 rounded-DEFAULT font-body-sm flex items-center gap-3">
+          <mat-icon fontSet="material-symbols-outlined" class="text-primary">check_circle</mat-icon>
+          <span>¡Mensaje enviado con éxito! Nos pondremos en contacto pronto.</span>
+        </div>
+
+        <!-- Error Alert -->
+        <div *ngIf="submitError" class="bg-error/10 border border-error/20 text-error p-4 rounded-DEFAULT font-body-sm flex items-center gap-3">
+          <mat-icon fontSet="material-symbols-outlined" class="text-error">error</mat-icon>
+          <span>{{ errorMessage }}</span>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div>
+            <label class="block font-label-md text-label-md text-deep-navy mb-2" for="nombre">Nombre *</label>
+            <input id="nombre" formControlName="nombre" type="text"
+              class="w-full bg-surface-container-lowest border border-cool-gray rounded-DEFAULT px-4 py-3 focus:outline-none focus:border-secondary focus:ring-1 focus:ring-secondary transition-all"
+              placeholder="Dr. Juan Pérez" />
+            <div *ngIf="form.get('nombre')?.touched && form.get('nombre')?.invalid" class="text-xs text-error mt-1 font-medium">
+              <span *ngIf="form.get('nombre')?.errors?.['required']">El nombre es obligatorio.</span>
+              <span *ngIf="form.get('nombre')?.errors?.['minlength']">Debe tener al menos 5 caracteres.</span>
+            </div>
+          </div>
+          <div>
+            <label class="block font-label-md text-label-md text-deep-navy mb-2" for="correo">Correo electrónico *</label>
+            <input id="correo" formControlName="correo" type="email"
+              class="w-full bg-surface-container-lowest border border-cool-gray rounded-DEFAULT px-4 py-3 focus:outline-none focus:border-secondary focus:ring-1 focus:ring-secondary transition-all"
+              placeholder="juan.perez@university.edu" />
+            <div *ngIf="form.get('correo')?.touched && form.get('correo')?.invalid" class="text-xs text-error mt-1 font-medium">
+              <span *ngIf="form.get('correo')?.errors?.['required']">El correo es obligatorio.</span>
+              <span *ngIf="form.get('correo')?.errors?.['email']">Ingrese un correo válido.</span>
+            </div>
+          </div>
+        </div>
+        <div>
+          <label class="block font-label-md text-label-md text-deep-navy mb-2" for="mensaje">Mensaje *</label>
+          <textarea id="mensaje" formControlName="mensaje" rows="5"
+            class="w-full bg-surface-container-lowest border border-cool-gray rounded-DEFAULT px-4 py-3 focus:outline-none focus:border-secondary focus:ring-1 focus:ring-secondary transition-all resize-none"
+            placeholder="Por favor, detalle su consulta aquí..."></textarea>
+          <div *ngIf="form.get('mensaje')?.touched && form.get('mensaje')?.invalid" class="text-xs text-error mt-1 font-medium">
+            <span *ngIf="form.get('mensaje')?.errors?.['required']">El mensaje es obligatorio.</span>
+            <span *ngIf="form.get('mensaje')?.errors?.['minlength']">Debe tener al menos 10 caracteres.</span>
+            <span *ngIf="form.get('mensaje')?.errors?.['maxlength']">Máximo 2000 caracteres.</span>
+          </div>
+        </div>
+        <button
+          [disabled]="form.invalid || isSubmitting"
+          [ngClass]="{'opacity-50 cursor-not-allowed': form.invalid || isSubmitting}"
+          class="bg-primary hover:bg-surface-tint text-on-primary font-label-md text-label-md px-8 py-3 rounded-DEFAULT transition-colors w-full md:w-auto flex items-center justify-center gap-2"
+          type="submit">
+          <span *ngIf="isSubmitting" class="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin"></span>
+          <span>{{ isSubmitting ? 'Enviando...' : 'Enviar mensaje' }}</span>
+          <mat-icon *ngIf="!isSubmitting" fontSet="material-symbols-outlined" class="text-sm">send</mat-icon>
+        </button>
+      </form>
+    </section>
+
+    <aside class="lg:col-span-5 flex flex-col gap-gutter">
+      <div class="bg-surface-container border border-muted-blue-gray rounded-xl p-6 md:p-8">
+        <h3 class="font-headline-md text-headline-md text-deep-navy mb-6">Detalles Institucionales</h3>
+        <div class="space-y-6">
+          <div class="flex items-start gap-4">
+            <div
+              class="mt-1 bg-surface-container-lowest p-2 border border-muted-blue-gray rounded-DEFAULT text-primary">
+              <mat-icon fontSet="material-symbols-outlined">location_on</mat-icon></div>
+            <div>
+              <h4 class="font-label-md text-label-md text-deep-navy mb-1 uppercase tracking-wider">Dirección</h4>
+              <p class="font-body-sm text-body-sm text-slate-gray leading-relaxed">Av. de Los Chasquis y Av. Río
+                Payamino.<br>Facultad de Ingeniería en Sistemas, Electrónica e Industrial.<br>Universidad Técnica de
+                Ambato.<br>Ambato – Ecuador.</p>
+            </div>
+          </div>
+          <div class="flex items-start gap-4">
+            <div
+              class="mt-1 bg-surface-container-lowest p-2 border border-muted-blue-gray rounded-DEFAULT text-primary">
+              <mat-icon fontSet="material-symbols-outlined">mail</mat-icon></div>
+            <div>
+              <h4 class="font-label-md text-label-md text-deep-navy mb-1 uppercase tracking-wider">Correo electrónico
+              </h4>
+              <a class="font-body-md text-body-md text-secondary hover:text-primary transition-colors"
+                href="mailto:reasons@uta.edu.ec">reasons@uta.edu.ec</a>
+            </div>
+          </div>
+          <div class="pt-6 mt-6 border-t border-muted-blue-gray/50">
+            <p class="font-body-sm text-body-sm text-slate-gray italic">Nuestra oficina administrativa está abierta de
+              lunes a viernes, de 08:00 a 17:00 (ECT).</p>
+          </div>
+        </div>
+      </div>
+
+      <div
+        class="h-64 bg-surface-container-high border border-muted-blue-gray rounded-xl overflow-hidden relative group shadow-sm hover:shadow-md transition-shadow duration-300">
+        <!-- Mapa Estático de Vector Premium (Servido desde la raíz pública) -->
+        <img alt="Mapa de Ambato - Universidad Técnica de Ambato"
+          class="w-full h-full object-cover filter brightness-[0.85] contrast-[1.05] group-hover:scale-105 transition-transform duration-700 ease-out"
+          src="ambato_minimal_map.png" />
+
+        <!-- Pinpoint dinámico palpitante en el centro -->
+        <div class="absolute inset-0 flex items-center justify-center pointer-events-none">
+          <span class="relative flex h-8 w-8 items-center justify-center">
+            <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary opacity-60"></span>
+            <span class="relative inline-flex rounded-full h-4 w-4 bg-primary border-2 border-surface shadow-md"></span>
+          </span>
+        </div>
+
+        <!-- Etiqueta de Ubicación -->
+        <div
+          class="absolute bottom-4 left-4 bg-surface-container-lowest/90 backdrop-blur-sm border border-muted-blue-gray px-3 py-1.5 rounded-DEFAULT shadow-sm flex items-center gap-2 pointer-events-none transition-transform duration-300 group-hover:-translate-y-1">
+          <mat-icon fontSet="material-symbols-outlined" class="text-sm text-primary">location_on</mat-icon>
+          <span class="font-label-md text-label-md text-deep-navy">Campus Huachi, UTA</span>
+        </div>
+
+        <!-- Enlace intermitente interactivo -->
+        <a href="https://maps.app.goo.gl/87rrnjkqFb59Cn7q8" target="_blank" rel="noopener noreferrer"
+          class="absolute inset-0 bg-transparent hover:bg-deep-navy/30 hover:backdrop-blur-[2px] transition-all duration-300 flex items-center justify-center group/btn"
+          title="Abrir mapa interactivo en Google Maps">
+          <span
+            class="opacity-0 group-hover:opacity-100 bg-surface-container-lowest/95 border border-muted-blue-gray text-deep-navy font-label-md text-label-md px-5 py-2.5 rounded-DEFAULT shadow-md flex items-center gap-2 transition-all duration-300 transform translate-y-2 group-hover:translate-y-0 hover:bg-primary hover:text-on-primary hover:border-primary">
+            <mat-icon fontSet="material-symbols-outlined" class="text-sm">open_in_new</mat-icon>
+            Abrir Mapa Interactivo
+          </span>
+        </a>
+        <div class="absolute inset-0 border border-muted-blue-gray rounded-xl pointer-events-none"></div>
+      </div>
+    </aside>
+  </div>
+</main>

@@ -1,0 +1,250 @@
+.rich-text-editor-container {
+  font-family: inherit;
+  cursor: text;
+
+  .editor-toolbar {
+    cursor: default;
+    .toolbar-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 32px;
+      height: 32px;
+      border-radius: 4px;
+      border: none;
+      background: transparent;
+      color: #4A5B6B;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      font-size: 15px;
+
+      &:hover {
+        background-color: #E1E8EB;
+        color: #00639B;
+      }
+
+      &:active {
+        transform: scale(0.95);
+      }
+
+      &.active {
+        background-color: #00639B !important;
+        color: #ffffff !important;
+      }
+    }
+
+    .toolbar-select {
+      height: 32px;
+      font-family: inherit;
+      background-color: #ffffff;
+      border: 1px solid #C4D0D6;
+      border-radius: 4px;
+      padding: 0 4px;
+      color: #0A1F4D;
+      font-size: 13px;
+      cursor: pointer;
+      outline: none;
+      transition: all 0.2s ease;
+
+      &:hover {
+        border-color: #00639B;
+        background-color: #F4F7F8;
+      }
+      
+      &:focus {
+        border-color: #00639B;
+      }
+    }
+  }
+
+  .editor-content {
+    background-color: #ffffff;
+    line-height: 1.6;
+    cursor: text;
+    word-break: break-word !important;
+    overflow-wrap: break-word !important;
+    text-align: justify;
+
+    &:empty:before {
+      content: attr(placeholder);
+      color: #8494A4;
+      font-style: italic;
+      cursor: text;
+    }
+  }
+
+  &.fullscreen {
+    position: fixed !important;
+    top: 0 !important;
+    left: 0 !important;
+    right: 0 !important;
+    bottom: 0 !important;
+    width: 100% !important;
+    height: 100% !important;
+    max-width: 100% !important;
+    max-height: 100% !important;
+    z-index: 99999 !important;
+    border: none !important;
+    border-radius: 0 !important;
+    background-color: #ffffff !important;
+    overflow: hidden !important; // Prevent outer container scroll
+
+    .editor-toolbar {
+      padding: 12px 24px !important;
+      border-radius: 0 !important;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05) !important;
+      width: 100% !important;
+      box-sizing: border-box !important;
+    }
+
+    .editor-content {
+      flex: 1 !important;
+      height: calc(100vh - 60px) !important;
+      max-height: none !important;
+      min-height: auto !important;
+      padding: 32px 24px !important;
+      max-width: 100% !important;
+      width: 100% !important;
+      margin: 0 !important;
+      border-radius: 0 !important;
+      box-shadow: none !important;
+      border: none !important;
+      box-sizing: border-box !important;
+    }
+  }
+}
+
+/* Bypass View Encapsulation for dynamically created editor elements inside contenteditable */
+:host ::ng-deep {
+  .editor-content {
+    text-align: justify;
+
+    h1 {
+      display: block !important;
+      font-size: 1.5rem !important;
+      font-weight: 700 !important;
+      margin-top: 1rem !important;
+      margin-bottom: 0.5rem !important;
+      color: #0A1F4D !important;
+    }
+
+    h2 {
+      display: block !important;
+      font-size: 1.25rem !important;
+      font-weight: 600 !important;
+      margin-top: 0.875rem !important;
+      margin-bottom: 0.5rem !important;
+      color: #0A1F4D !important;
+    }
+
+    p {
+      margin-bottom: 0.75rem !important;
+    }
+
+    ul, ol {
+      margin-left: 1.5rem !important;
+      margin-bottom: 0.75rem !important;
+      padding-left: 0px !important;
+    }
+
+    ul {
+      list-style-type: disc !important;
+    }
+
+    ol {
+      list-style-type: decimal !important;
+    }
+
+    a {
+      color: #00639B !important;
+      text-decoration: underline !important;
+      font-weight: 500 !important;
+    }
+
+    img {
+      max-width: 100% !important;
+      height: auto !important;
+    }
+  }
+}
+
+/* Dark mode overrides for the editor */
+:host-context(.dark) {
+  .rich-text-editor-container {
+    border-color: var(--color-border) !important;
+    background-color: #000000 !important;
+
+    .editor-toolbar {
+      background-color: var(--color-surface-container-low) !important;
+      border-color: var(--color-border) !important;
+
+      .toolbar-btn {
+        color: var(--color-slate-gray) !important;
+
+        &:hover {
+          background-color: var(--color-surface-container-high) !important;
+          color: var(--color-on-surface) !important;
+        }
+
+        &.active {
+          background-color: var(--color-primary) !important;
+          color: var(--color-on-primary-container) !important;
+        }
+      }
+
+      .toolbar-select {
+        background-color: #000000 !important;
+        border-color: var(--color-border) !important;
+        color: var(--color-on-surface) !important;
+
+        option {
+          background-color: #000000 !important;
+          color: #ffffff !important;
+        }
+
+        &:hover, &:focus {
+          border-color: var(--color-primary) !important;
+          background-color: var(--color-surface-container-low) !important;
+        }
+      }
+    }
+
+    .editor-content {
+      background-color: #000000 !important;
+      color: var(--color-slate-gray) !important; /* Reddit-style: normal text slightly more dimmed */
+
+      &:empty:before {
+        color: #52525b !important;
+      }
+    }
+
+    &.fullscreen {
+      background-color: #000000 !important;
+    }
+  }
+}
+
+/* Deep styles for dynamic contenteditable content under dark mode */
+::ng-deep .dark {
+  .editor-content {
+    color: var(--color-slate-gray) !important;
+
+    *, span, p, font {
+      color: #cccccc !important; /* Reddit-style normal text slightly dimmed */
+    }
+
+    h1, h2, h3, h4, h5, h6, strong, b {
+      color: #ffffff !important; /* White bold/headings */
+    }
+
+    h1 *, h2 *, h3 *, h4 *, h5 *, h6 *, strong *, b * {
+      color: #ffffff !important;
+    }
+
+    a, a * {
+      color: #60a5fa !important; /* Light blue link */
+    }
+  }
+}
+
+
