@@ -1,0 +1,145 @@
+<div class="min-h-screen bg-surface-container-lowest py-12">
+  <div class="max-w-max-width mx-auto px-margin-mobile md:px-margin-desktop">
+    <!-- Back Navigation -->
+    <div class="mb-8">
+      <a routerLink="/proyectos" class="inline-flex items-center gap-2 text-primary hover:text-primary-container font-label-md transition-colors">
+        <span class="material-symbols-outlined">arrow_back</span>
+        Volver a Proyectos
+      </a>
+    </div>
+
+    <!-- Loading State -->
+    <div *ngIf="loading" class="flex flex-col items-center justify-center py-20">
+      <div class="w-12 h-12 border-4 border-primary border-t-transparent rounded-full animate-spin mb-4"></div>
+      <p class="text-slate-gray font-body-md">Cargando detalles del proyecto...</p>
+    </div>
+
+    <!-- Error State -->
+    <div *ngIf="error && !loading" class="bg-error/10 border border-error/20 text-error p-8 rounded-DEFAULT text-center max-w-lg mx-auto">
+      <span class="material-symbols-outlined text-5xl mb-4 block">error</span>
+      <h2 class="font-headline-md mb-2 text-deep-navy">Error al cargar</h2>
+      <p class="font-body-md text-slate-gray mb-6">No se pudo cargar la información del proyecto solicitado o el proyecto no existe.</p>
+      <a routerLink="/proyectos" class="btn-primary inline-flex items-center gap-2 rounded-DEFAULT">
+        Ir a Proyectos
+      </a>
+    </div>
+
+    <!-- Main Content -->
+    <div *ngIf="proyecto && !loading && !error" class="space-y-12">
+      <!-- Project Header Banner -->
+      <div class="bg-surface border border-muted-blue-gray rounded-DEFAULT overflow-hidden shadow-custom-soft flex flex-col lg:flex-row animate-fade-in">
+        <div *ngIf="proyecto.imagen" class="lg:w-1/2 min-h-[300px] lg:min-h-[450px] relative">
+          <img [src]="resolveBackendUrl(proyecto.imagen)" [alt]="proyecto.titulo" class="absolute inset-0 w-full h-full object-cover" />
+        </div>
+        <div [class]="proyecto.imagen ? 'lg:w-1/2 p-8 lg:p-12 flex flex-col justify-center' : 'w-full p-8 lg:p-12 flex flex-col justify-center bg-surface-container-low'">
+          <div class="flex flex-wrap gap-2 mb-6">
+            <span *ngFor="let kw of proyecto.keywords || []" class="bg-surface-container-highest text-deep-navy px-3 py-1 font-label-md text-label-sm rounded-DEFAULT border border-cool-gray">{{ kw }}</span>
+            <span *ngIf="!proyecto.keywords || proyecto.keywords.length === 0" class="bg-surface-container-highest text-deep-navy px-3 py-1 font-label-md text-label-sm rounded-DEFAULT border border-cool-gray">Sostenibilidad</span>
+          </div>
+
+          <h1 class="font-headline-xl-mobile md:font-headline-xl text-deep-navy mb-4 leading-tight">{{ proyecto.titulo }}</h1>
+          
+          <!-- Short Description Inside Header Banner -->
+          <p class="font-body-md text-slate-gray mb-6 leading-relaxed whitespace-pre-line">{{ proyecto.descripcion }}</p>
+          
+          <div class="flex flex-wrap items-center gap-x-6 gap-y-3 font-label-md text-slate-gray text-label-md mt-4 border-t border-muted-blue-gray/30 pt-6">
+            <div class="flex items-center gap-2">
+              <span class="material-symbols-outlined text-primary text-xl">event</span>
+              <span>
+                {{ proyecto.fechaInicio ? (proyecto.fechaInicio | date:'dd/MM/yyyy':'UTC') : 'Sin fecha' }} 
+                <ng-container *ngIf="proyecto.fechaFin"> - {{ proyecto.fechaFin | date:'dd/MM/yyyy':'UTC' }}</ng-container>
+              </span>
+            </div>
+            <div class="flex items-center gap-2">
+              <span class="material-symbols-outlined text-primary text-xl">info</span>
+              <span class="bg-secondary/10 text-secondary px-2.5 py-0.5 rounded-DEFAULT font-label-md text-label-sm font-semibold uppercase tracking-wider">{{ proyecto.estado || 'En curso' }}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Project details layout -->
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-12">
+        <!-- Left details panel -->
+        <div class="lg:col-span-8 space-y-12">
+          <!-- Description Section (Extended Description) -->
+          <section *ngIf="proyecto.descripcionExtendida" class="bg-surface-container-lowest border border-muted-blue-gray rounded-DEFAULT p-8 shadow-sm w-full overflow-x-auto">
+            <h2 class="font-headline-md text-deep-navy mb-4 flex items-center gap-2">
+              <span class="material-symbols-outlined text-primary">description</span>
+              Descripción Detallada
+            </h2>
+            <div class="font-body-md text-slate-gray leading-relaxed rich-text-display" [innerHTML]="safeDescripcionExtendida"></div>
+          </section>
+
+          <!-- Objectives Section -->
+          <section *ngIf="proyecto.objetivos" class="bg-surface-container-lowest border border-muted-blue-gray rounded-DEFAULT p-8 shadow-sm">
+            <h2 class="font-headline-md text-deep-navy mb-6 flex items-center gap-2">
+              <span class="material-symbols-outlined text-primary">flag</span>
+              Objetivos del Proyecto
+            </h2>
+            <div class="space-y-4">
+              <div *ngFor="let obj of getObjetivosList(); let i = index" class="flex gap-4 items-start p-4 bg-surface-container-lowest border border-muted-blue-gray rounded-DEFAULT hover:border-primary/30 transition-all duration-300">
+                <div class="w-8 h-8 rounded-full bg-primary/10 text-primary flex items-center justify-center font-semibold text-body-sm flex-shrink-0 mt-0.5">
+                  {{ i + 1 }}
+                </div>
+                <p class="font-body-md text-slate-gray leading-relaxed">{{ obj }}</p>
+              </div>
+            </div>
+          </section>
+
+          <!-- Results Section -->
+          <section *ngIf="proyecto.resultados" class="bg-surface-container-lowest border border-muted-blue-gray rounded-DEFAULT p-8 shadow-sm w-full overflow-x-auto">
+            <h2 class="font-headline-md text-deep-navy mb-4 flex items-center gap-2">
+              <span class="material-symbols-outlined text-primary">analytics</span>
+              Resultados e Impacto
+            </h2>
+            <div class="font-body-md text-slate-gray leading-relaxed rich-text-display" [innerHTML]="safeResultados"></div>
+          </section>
+        </div>
+
+        <!-- Right sidebar -->
+        <aside class="lg:col-span-4 space-y-8">
+          <!-- Metadata Sidebar Box -->
+          <div class="bg-surface-container-low border border-muted-blue-gray rounded-DEFAULT p-6">
+            <h3 class="font-label-lg text-deep-navy mb-4 uppercase tracking-wider">Detalles del Proyecto</h3>
+            <div class="space-y-4 font-body-sm text-body-sm">
+              <div *ngIf="proyecto.participantes" class="pb-3 border-b border-muted-blue-gray/40">
+                <span class="text-slate-gray block mb-1">Participantes</span>
+                <span class="text-deep-navy font-semibold">{{ proyecto.participantes }}</span>
+              </div>
+              <div *ngIf="proyecto.lineas && proyecto.lineas.length > 0" class="pb-3 border-b border-muted-blue-gray/40">
+                <span class="text-slate-gray block mb-2">Líneas de Investigación</span>
+                <div class="flex flex-wrap gap-1.5">
+                  <span *ngFor="let line of proyecto.lineas" class="bg-surface-container-highest text-deep-navy border border-muted-blue-gray/30 px-2 py-0.5 rounded-DEFAULT font-label-md text-label-xs">
+                    {{ line.nombre }}
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Team/Researchers Involved -->
+          <div *ngIf="proyecto.investigadores && proyecto.investigadores.length > 0" class="space-y-4">
+            <h3 class="font-headline-sm text-deep-navy">Investigadores Colaboradores</h3>
+            <div class="space-y-4">
+              <div *ngFor="let inv of proyecto.investigadores" class="bg-surface-container-lowest border border-muted-blue-gray rounded-DEFAULT p-4 flex gap-4 hover:shadow-custom-soft transition-all duration-300 animate-slide-in">
+                <div class="w-12 h-12 rounded-full bg-surface-container overflow-hidden flex-shrink-0 relative">
+                  <img *ngIf="inv.foto" [src]="resolveBackendUrl(inv.foto)" [alt]="inv.nombre" class="w-full h-full object-cover" />
+                  <span *ngIf="!inv.foto" class="material-symbols-outlined text-3xl text-cool-gray absolute inset-0 flex items-center justify-center">person</span>
+                </div>
+                <div class="flex-grow min-w-0">
+                  <h4 class="font-label-md text-deep-navy font-bold truncate">{{ inv.nombre }}</h4>
+                  <p class="font-body-xs text-secondary truncate">{{ inv.cargo }}</p>
+                  <a *ngIf="inv.correo" [href]="'mailto:' + inv.correo" class="text-primary hover:text-primary-container text-body-xs flex items-center gap-1 mt-1 font-medium">
+                    <span class="material-symbols-outlined text-sm">mail</span>
+                    Contacto
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </aside>
+      </div>
+    </div>
+  </div>
+</div>

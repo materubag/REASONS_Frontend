@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ApiService, InvestigadoresStoreService } from '../../../../core/services';
-import { GrupoInformacion, Investigador, LineaInvestigacion } from '../../../../core/models';
+import { ApiService, InvestigadoresStoreService, HomeStoreService } from '../../../../core/services';
+import { GrupoInformacion, Investigador, LineaInvestigacion, Proyecto, Publicacion } from '../../../../core/models';
 import { resolveBackendUrl } from '../../../../core/utils/url';
 
 @Component({
@@ -17,20 +17,48 @@ export class HomePageComponent implements OnInit {
   director?: Investigador;
   subdirector?: Investigador;
   copiedEmailKey: 'director' | 'subdirector' | null = null;
+  primerProyecto?: Proyecto;
+  primeraPublicacion?: Publicacion;
 
   constructor(
     private apiService: ApiService,
-    private investigadoresStore: InvestigadoresStoreService
+    private investigadoresStore: InvestigadoresStoreService,
+    private homeStore: HomeStoreService
   ) {}
 
   ngOnInit(): void {
     this.loadGrupoInformacion();
     this.loadLineasInvestigacion();
     this.loadDirectivos();
+    this.loadDestacados();
+  }
+
+  private loadDestacados(): void {
+    this.apiService.getProyectos(1, 1).subscribe({
+      next: (response) => {
+        if (response.success && response.data.length > 0) {
+          this.primerProyecto = response.data[0];
+        }
+      },
+      error: (error) => {
+        console.error('Error loading primer proyecto:', error);
+      },
+    });
+
+    this.apiService.getPublicaciones(1, 1).subscribe({
+      next: (response) => {
+        if (response.success && response.data.length > 0) {
+          this.primeraPublicacion = response.data[0];
+        }
+      },
+      error: (error) => {
+        console.error('Error loading primera publicacion:', error);
+      },
+    });
   }
 
   private loadGrupoInformacion(): void {
-    this.apiService.getGrupoInformacion(1, 1).subscribe({
+    this.homeStore.getGrupoInformacion(1, 1).subscribe({
       next: (response) => {
         if (response.success && response.data.length > 0) {
           this.grupoInformacion = response.data[0];
@@ -43,7 +71,7 @@ export class HomePageComponent implements OnInit {
   }
 
   private loadLineasInvestigacion(): void {
-    this.apiService.getLineasInvestigacion(1, 3).subscribe({
+    this.homeStore.getLineasInvestigacion(1, 3).subscribe({
       next: (response) => {
         if (response.success) {
           this.lineasInvestigacion = [...response.data].sort((a, b) => a.id - b.id);
@@ -98,5 +126,29 @@ export class HomePageComponent implements OnInit {
 
   resolveBackendUrl(path?: string | null): string {
     return resolveBackendUrl(path);
+  }
+
+  getLimitedObjetivos(objetivos?: string): string {
+    if (!objetivos) return '';
+    const list = objetivos.split('\n').map(o => o.trim()).filter(Boolean);
+    return list.slice(0, 3).join('\n');
+  }
+
+  getLimitedResultados(resultados?: string): string {
+    if (!resultados) return '';
+    const plainText = resultados.replace(/<[^>]*>/g, ' ').replace(/\s+/g, ' ').trim();
+    if (plainText.length <= 160) {
+      return plainText;
+    }
+    return plainText.substring(0, 160) + '...';
+  }
+
+  getLimitedResumen(resumen?: string, limit: number = 300): string {
+    if (!resumen) return '';
+    const plainText = resumen.replace(/<[^>]*>/g, ' ').replace(/\s+/g, ' ').trim();
+    if (plainText.length <= limit) {
+      return plainText;
+    }
+    return plainText.substring(0, limit) + '...';
   }
 }

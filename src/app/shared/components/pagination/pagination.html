@@ -1,0 +1,61 @@
+<div *ngIf="totalItems > pageSize" class="flex items-center justify-between border-t border-muted-blue-gray/20 px-4 py-4 sm:px-6 mt-6 bg-surface-container-low rounded-xl w-full">
+  <div class="flex flex-1 justify-between sm:hidden">
+    <button 
+      (click)="prevPage()" 
+      [disabled]="currentPage === 1"
+      class="relative inline-flex items-center rounded-md border border-muted-blue-gray/30 bg-surface-container-lowest px-4 py-2 text-sm font-medium text-deep-navy hover:bg-surface-container-high disabled:opacity-50 disabled:pointer-events-none transition-colors"
+    >
+      Anterior
+    </button>
+    <button 
+      (click)="nextPage()" 
+      [disabled]="currentPage === totalPages"
+      class="relative ml-3 inline-flex items-center rounded-md border border-muted-blue-gray/30 bg-surface-container-lowest px-4 py-2 text-sm font-medium text-deep-navy hover:bg-surface-container-high disabled:opacity-50 disabled:pointer-events-none transition-colors"
+    >
+      Siguiente
+    </button>
+  </div>
+  <div class="hidden sm:flex sm:flex-1 sm:items-center sm:justify-between">
+    <div>
+      <p class="text-sm text-slate-gray">
+        Mostrando de
+        <span class="font-semibold text-deep-navy">{{ getStartIndex() }}</span>
+        a
+        <span class="font-semibold text-deep-navy">{{ getEndIndex() }}</span>
+        de
+        <span class="font-semibold text-deep-navy">{{ totalItems }}</span>
+        resultados
+      </p>
+    </div>
+    <div>
+      <nav class="isolate inline-flex -space-x-px rounded-md shadow-sm" aria-label="Pagination">
+        <button 
+          (click)="prevPage()" 
+          [disabled]="currentPage === 1"
+          class="relative inline-flex items-center rounded-l-md px-2 py-2 text-slate-gray ring-1 ring-inset ring-muted-blue-gray/30 hover:bg-surface-container-high focus:z-20 focus:outline-offset-0 disabled:opacity-50 disabled:pointer-events-none transition-colors"
+        >
+          <span class="sr-only">Anterior</span>
+          <span class="material-symbols-outlined text-[18px]">chevron_left</span>
+        </button>
+        
+        <button 
+          *ngFor="let page of getPagesArray()" 
+          (click)="goToPage(page)"
+          [ngClass]="page === currentPage ? 'z-10 bg-primary text-on-primary font-semibold' : 'text-deep-navy ring-1 ring-inset ring-muted-blue-gray/30 hover:bg-surface-container-high focus:z-20'"
+          class="relative inline-flex items-center px-4 py-2 text-sm font-semibold transition-colors"
+        >
+          {{ page }}
+        </button>
+
+        <button 
+          (click)="nextPage()" 
+          [disabled]="currentPage === totalPages"
+          class="relative inline-flex items-center rounded-r-md px-2 py-2 text-slate-gray ring-1 ring-inset ring-muted-blue-gray/30 hover:bg-surface-container-high focus:z-20 focus:outline-offset-0 disabled:opacity-50 disabled:pointer-events-none transition-colors"
+        >
+          <span class="sr-only">Siguiente</span>
+          <span class="material-symbols-outlined text-[18px]">chevron_right</span>
+        </button>
+      </nav>
+    </div>
+  </div>
+</div>

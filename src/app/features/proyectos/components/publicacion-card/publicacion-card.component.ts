@@ -18,15 +18,23 @@ import { resolveBackendUrl } from '../../../../core/utils/url';
         />
       </div>
 
-      <!-- Category & Year -->
-      <div class="flex justify-between items-start mb-4">
-        <span
-          *ngIf="publicacion.categoria"
-          class="inline-block bg-accent/10 text-accent text-xs font-semibold px-3 py-1 rounded-full"
-        >
-          {{ publicacion.categoria }}
-        </span>
-        <span class="text-xs font-semibold text-text-secondary">{{ publicacion.anio }}</span>
+      <!-- Keywords & Year -->
+      <div class="flex justify-between items-start gap-2 mb-4">
+        <div class="flex flex-wrap gap-1">
+          <span
+            *ngFor="let keyword of (publicacion.keywords || [])"
+            class="inline-block bg-accent/10 text-accent text-xs font-semibold px-3 py-1 rounded-full"
+          >
+            {{ keyword }}
+          </span>
+          <span
+            *ngIf="!publicacion.keywords || publicacion.keywords.length === 0"
+            class="inline-block bg-accent/10 text-accent text-xs font-semibold px-3 py-1 rounded-full"
+          >
+            Sostenibilidad
+          </span>
+        </div>
+        <span class="text-xs font-semibold text-text-secondary flex-shrink-0">{{ publicacion.anio }}</span>
       </div>
 
       <!-- Content -->

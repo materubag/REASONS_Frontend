@@ -1,13 +1,29 @@
 <footer class="bg-surface-container-highest border-t border-muted-blue-gray mt-auto">
 	<div class="flex flex-col md:flex-row justify-between items-center py-12 px-margin-mobile md:px-margin-desktop w-full max-w-max-width mx-auto gap-gutter">
-		<div>
+		<div class="text-center md:text-left">
 			<span class="font-headline-sm text-headline-sm font-semibold text-deep-navy">REASONS</span>
-			<p class="font-body-sm text-body-sm text-on-surface-variant mt-2">© 2024 REASONS Research Group. All rights reserved. University of Texas at Arlington.</p>
+			<p class="font-body-sm text-body-sm text-on-surface-variant mt-2">© 2024 REASONS Research Group. Todos los derechos reservados. Universidad Técnica de Ambato.</p>
 		</div>
-		<nav class="flex flex-wrap justify-center gap-6">
-			<a class="font-body-sm text-body-sm text-on-surface-variant hover:text-primary transition-colors opacity-90 hover:opacity-100" href="#">Privacy Policy</a>
-			<a class="font-body-sm text-body-sm text-on-surface-variant hover:text-primary transition-colors opacity-90 hover:opacity-100" href="#">Institutional Access</a>
-			<a class="font-body-sm text-body-sm text-on-surface-variant hover:text-primary transition-colors opacity-90 hover:opacity-100" href="#">Contact Support</a>
-		</nav>
+		<div class="flex flex-col items-center md:items-end gap-4">
+			<nav class="flex flex-wrap justify-center md:justify-end gap-6">
+				<a class="font-body-sm text-body-sm text-on-surface-variant hover:text-primary transition-colors opacity-90 hover:opacity-100" href="#">Política de Privacidad</a>
+				<a class="font-body-sm text-body-sm text-on-surface-variant hover:text-primary transition-colors opacity-90 hover:opacity-100" href="#">Acceso Institucional</a>
+				<a class="font-body-sm text-body-sm text-on-surface-variant hover:text-primary transition-colors opacity-90 hover:opacity-100" href="#">Soporte</a>
+			</nav>
+			<div class="flex items-center gap-4">
+				<a href="mailto:reasons@uta.edu.ec" class="w-10 h-10 rounded-full bg-white border border-muted-blue-gray/60 flex items-center justify-center text-on-surface-variant hover:text-primary hover:border-primary hover:shadow-sm transition-all duration-300" title="Correo Electrónico">
+					<span class="material-symbols-outlined text-lg">mail</span>
+				</a>
+				<a href="https://instagram.com" target="_blank" class="w-10 h-10 rounded-full bg-white border border-muted-blue-gray/60 flex items-center justify-center text-on-surface-variant hover:text-primary hover:border-primary hover:shadow-sm transition-all duration-300" title="Instagram">
+					<i class="bi bi-instagram text-md"></i>
+				</a>
+				<a href="https://facebook.com" target="_blank" class="w-10 h-10 rounded-full bg-white border border-muted-blue-gray/60 flex items-center justify-center text-on-surface-variant hover:text-primary hover:border-primary hover:shadow-sm transition-all duration-300" title="Facebook">
+					<i class="bi bi-facebook text-md"></i>
+				</a>
+				<a routerLink="/contactos" class="w-10 h-10 rounded-full bg-white border border-muted-blue-gray/60 flex items-center justify-center text-on-surface-variant hover:text-primary hover:border-primary hover:shadow-sm transition-all duration-300" title="Ubicación y Contactos">
+					<span class="material-symbols-outlined text-lg">location_on</span>
+				</a>
+			</div>
+		</div>
 	</div>
 </footer>

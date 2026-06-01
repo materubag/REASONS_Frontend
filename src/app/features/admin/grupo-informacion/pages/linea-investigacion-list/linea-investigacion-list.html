@@ -1,0 +1,131 @@
+<!-- Header Section & Tabs -->
+<div class="mb-8">
+  <h1 class="text-3xl font-bold text-deep-navy font-headline-lg">Información del Grupo</h1>
+  <p class="text-sm text-slate-gray mt-1">Administra la información de presentación, misión y objetivos del grupo REASONS</p>
+  
+  <!-- Tabs Navigation -->
+  <div class="flex border-b border-muted-blue-gray/20 mt-6 space-x-6">
+    <a 
+      routerLink="/admin/grupo-informacion/edit"
+      class="border-b-2 border-transparent text-slate-gray hover:text-deep-navy px-4 py-3 text-sm transition-all font-medium"
+    >
+      Información General
+    </a>
+    <a 
+      routerLink="/admin/grupo-informacion/lineas"
+      class="border-b-2 border-primary text-primary font-semibold px-4 py-3 text-sm transition-all"
+    >
+      Líneas de Investigación
+    </a>
+  </div>
+</div>
+
+<!-- Toolbar (Search & Add) -->
+<div class="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-4 mb-6">
+  <!-- Search -->
+  <div class="relative flex-1 max-w-md">
+    <span class="absolute left-3 top-3 text-slate-gray">
+      <span class="material-symbols-outlined text-[20px]">search</span>
+    </span>
+    <input 
+      type="text" 
+      [(ngModel)]="searchTerm" 
+      (ngModelChange)="onSearchChange()"
+      placeholder="Buscar por nombre o descripción..." 
+      class="w-full bg-surface-container-lowest border border-muted-blue-gray/30 rounded-lg pl-10 pr-4 py-2.5 text-on-surface focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary transition-all text-sm shadow-sm"
+    >
+  </div>
+
+  <!-- Add Button -->
+  <a 
+    routerLink="/admin/grupo-informacion/lineas/create"
+    class="inline-flex items-center justify-center px-5 py-2.5 bg-primary text-on-primary font-semibold rounded-lg hover:bg-primary-dark transition-colors shadow-sm whitespace-nowrap"
+  >
+    <span class="material-symbols-outlined mr-2">add</span>
+    Agregar Línea
+  </a>
+</div>
+
+<!-- Loading Spinner -->
+<div *ngIf="loading" class="flex flex-col items-center justify-center py-20 px-8 bg-surface-container border border-border/10 rounded-xl max-w-md mx-auto shadow-sm my-6">
+  <div class="relative w-24 h-24 flex items-center justify-center mb-4">
+    <img 
+      src="/Logo_sin_fondo.png" 
+      alt="REASONS logo"
+      class="w-24 h-24 object-contain animate-[spin_4s_linear_infinite]"
+    />
+  </div>
+  <p class="font-bold text-xl text-deep-navy font-serif mb-1" style="font-family: 'Source Serif 4', 'Georgia', serif;">REASONS</p>
+  <p class="text-sm text-slate-gray text-center select-none">Cargando líneas de investigación...</p>
+</div>
+
+<!-- Table List -->
+<div *ngIf="!loading" class="w-full space-y-6">
+  <div class="overflow-x-auto border border-muted-blue-gray/30 rounded-xl bg-surface-container-lowest shadow-sm">
+    <table class="w-full border-collapse text-left">
+      <thead>
+        <tr class="bg-surface-container border-b border-muted-blue-gray/20">
+          <th class="p-4 font-semibold text-deep-navy text-xs uppercase tracking-wider w-24 text-center">N°</th>
+          <th class="p-4 font-semibold text-deep-navy text-xs uppercase tracking-wider">Nombre de la Línea</th>
+          <th class="p-4 font-semibold text-deep-navy text-xs uppercase tracking-wider">Descripción</th>
+          <th class="p-4 font-semibold text-deep-navy text-xs uppercase tracking-wider w-28">Acciones</th>
+        </tr>
+      </thead>
+      <tbody class="divide-y divide-surface-container-high text-on-surface">
+        <tr *ngFor="let item of paginatedLineas; let i = index" class="hover:bg-background/40 transition-colors">
+          <!-- N° -->
+          <td class="p-4 text-center">
+            <span class="inline-flex px-2 py-1 bg-surface-container text-deep-navy font-label-md text-xs rounded-md border border-muted-blue-gray/20">
+              Línea {{ (getStartIndex() + i) < 10 ? '0' : '' }}{{ getStartIndex() + i }}
+            </span>
+          </td>
+
+          <!-- Nombre -->
+          <td class="p-4 font-semibold text-deep-navy text-sm max-w-xs">
+            {{ item.nombre }}
+          </td>
+
+          <!-- Descripción -->
+          <td class="p-4 text-sm text-slate-gray max-w-md text-justify font-body-sm">
+            {{ item.descripcion }}
+          </td>
+
+          <!-- Acciones -->
+          <td class="p-4">
+            <div class="flex items-center space-x-2">
+              <a 
+                [routerLink]="['/admin/grupo-informacion/lineas/edit', item.id]"
+                class="inline-flex items-center justify-center p-2 rounded bg-surface-container text-deep-navy hover:bg-primary/10 hover:text-primary transition-all"
+                title="Editar"
+              >
+                <span class="material-symbols-outlined text-[18px]">edit</span>
+              </a>
+              <button 
+                (click)="deleteLinea(item.id)"
+                class="inline-flex items-center justify-center p-2 rounded bg-surface-container text-error hover:bg-error-container hover:text-on-error-container transition-all"
+                title="Eliminar"
+              >
+                <span class="material-symbols-outlined text-[18px]">delete</span>
+              </button>
+            </div>
+          </td>
+        </tr>
+
+        <tr *ngIf="filteredLineas.length === 0">
+          <td colspan="4" class="p-12 text-center text-slate-gray text-sm">
+            <span class="material-symbols-outlined text-4xl block mb-2 opacity-50">drafts</span>
+            No se encontraron líneas de investigación.
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Pagination Component -->
+  <app-pagination 
+    [currentPage]="currentPage" 
+    [pageSize]="pageSize" 
+    [totalItems]="filteredLineas.length" 
+    (pageChange)="goToPage($event)"
+  ></app-pagination>
+</div>

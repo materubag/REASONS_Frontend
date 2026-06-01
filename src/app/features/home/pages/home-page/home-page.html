@@ -10,12 +10,12 @@
 				<p class="font-body-lg text-body-lg text-slate-gray max-w-2xl">{{ grupoInformacion?.descripcion }}</p>
 				<div class="flex flex-wrap gap-4 mt-4">
 					<a class="inline-flex items-center justify-center px-6 py-3 bg-primary text-on-primary font-label-md text-label-md rounded-DEFAULT hover:bg-surface-tint transition-colors" href="/proyectos">Explorar proyectos</a>
-					<a class="inline-flex items-center justify-center px-6 py-3 border border-secondary text-secondary font-label-md text-label-md rounded-DEFAULT hover:bg-surface-container-low transition-colors" href="/publicaciones">Ver publicaciones</a>
+					<a class="inline-flex items-center justify-center px-6 py-3 border border-primary text-primary font-label-md text-label-md rounded-DEFAULT hover:bg-surface-container-low transition-colors" href="/publicaciones">Ver publicaciones</a>
 				</div>
 			</div>
 			<div class="md:col-span-5 mt-12 md:mt-0 relative">
 				<div class="aspect-square bg-surface-container rounded-xl overflow-hidden border border-muted-blue-gray relative">
-					<img alt="Ingenieros trabajando en un laboratorio moderno" class="object-cover w-full h-full opacity-90 mix-blend-multiply" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD6SAfCLqpHzTghzBnEXhN5vzORaNW4Mc-dKBEJcf2qUZDxAidFEYdD3E4oTPttC3STFPtb0BGKavWoj3BKezrLEwBthRzfc7ofbgcACm4B2eA_7Ekx7hWE_AAxlqSrt7CQj8-iE3NxID881pflLYjjDOHSjmP4TDXOeP3buNFCndKoQZ4IiW8wnj_8gScKuRZ4lPkhG3J5Nk_xV5EVVT9kM-0m8IA-AMN0G_P9x5mQaMpCLeo52cpOJEnwCmGJbpJffLOiIf1O4XS4" />
+					<img alt="Ingenieros trabajando en un laboratorio moderno" class="object-cover w-full h-full" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD6SAfCLqpHzTghzBnEXhN5vzORaNW4Mc-dKBEJcf2qUZDxAidFEYdD3E4oTPttC3STFPtb0BGKavWoj3BKezrLEwBthRzfc7ofbgcACm4B2eA_7Ekx7hWE_AAxlqSrt7CQj8-iE3NxID881pflLYjjDOHSjmP4TDXOeP3buNFCndKoQZ4IiW8wnj_8gScKuRZ4lPkhG3J5Nk_xV5EVVT9kM-0m8IA-AMN0G_P9x5mQaMpCLeo52cpOJEnwCmGJbpJffLOiIf1O4XS4" />
 				</div>
 			</div>
 		</div>
@@ -37,7 +37,7 @@
 					<div class="bg-surface border border-muted-blue-gray rounded-DEFAULT p-6">
 						<div class="w-10 h-10 rounded-full bg-secondary-fixed flex items-center justify-center mb-4 text-on-secondary-fixed"><span class="material-symbols-outlined">psychology</span></div>
 						<h4 class="font-label-md text-label-md text-deep-navy mb-2 uppercase tracking-wider">Metodología</h4>
-						<p class="font-body-sm text-body-sm text-slate-gray">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+						<p class="font-body-sm text-body-sm text-slate-gray" [innerHTML]="grupoInformacion?.metodologia || 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor.'"></p>
 					</div>
 					<div class="bg-surface border border-muted-blue-gray rounded-DEFAULT p-6">
 						<div class="w-10 h-10 rounded-full bg-primary-container flex items-center justify-center mb-4 text-on-primary-container"><span class="material-symbols-outlined">domain</span></div>
@@ -56,7 +56,7 @@
 				<p class="font-body-md text-body-md text-slate-gray max-w-2xl mx-auto">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
 			</div>
 			<div class="grid grid-cols-1 md:grid-cols-3 gap-gutter">
-				<div class="bg-surface border border-muted-blue-gray rounded-DEFAULT flex flex-col h-full hover:border-secondary transition-colors group">
+				<div class="bg-surface border border-muted-blue-gray rounded-DEFAULT flex flex-col h-full hover:border-primary transition-colors group">
 					<div class="h-48 bg-surface-container border-b border-muted-blue-gray relative overflow-hidden">
 						<div class="absolute inset-0 bg-primary opacity-10 group-hover:opacity-20 transition-opacity"></div>
 						<div class="w-full h-full flex items-center justify-center text-primary"><span class="material-symbols-outlined" style="font-size: 64px; font-variation-settings: 'FILL' 0;">precision_manufacturing</span></div>
@@ -67,7 +67,7 @@
 						<p class="font-body-sm text-body-sm text-slate-gray mt-auto">{{ lineasInvestigacion[0]?.descripcion }}</p>
 					</div>
 				</div>
-				<div class="bg-surface border border-muted-blue-gray rounded-DEFAULT flex flex-col h-full hover:border-secondary transition-colors group">
+				<div class="bg-surface border border-muted-blue-gray rounded-DEFAULT flex flex-col h-full hover:border-primary transition-colors group">
 					<div class="h-48 bg-surface-container border-b border-muted-blue-gray relative overflow-hidden">
 						<div class="absolute inset-0 bg-secondary opacity-10 group-hover:opacity-20 transition-opacity"></div>
 						<div class="w-full h-full flex items-center justify-center text-secondary"><span class="material-symbols-outlined" style="font-size: 64px; font-variation-settings: 'FILL' 0;">terminal</span></div>
@@ -78,7 +78,7 @@
 						<p class="font-body-sm text-body-sm text-slate-gray mt-auto">{{ lineasInvestigacion[1]?.descripcion }}</p>
 					</div>
 				</div>
-				<div class="bg-surface border border-muted-blue-gray rounded-DEFAULT flex flex-col h-full hover:border-secondary transition-colors group">
+				<div class="bg-surface border border-muted-blue-gray rounded-DEFAULT flex flex-col h-full hover:border-primary transition-colors group">
 					<div class="h-48 bg-surface-container border-b border-muted-blue-gray relative overflow-hidden">
 						<div class="absolute inset-0 bg-sustainable-green-deep opacity-10 group-hover:opacity-20 transition-opacity"></div>
 						<div class="w-full h-full flex items-center justify-center text-sustainable-green-deep"><span class="material-symbols-outlined" style="font-size: 64px; font-variation-settings: 'FILL' 0;">eco</span></div>
@@ -110,7 +110,7 @@
 								/>
 								<div>
 									<h2 class="font-headline-md text-headline-md text-deep-navy group-hover:text-primary transition-colors">{{ dir.nombre }}</h2>
-									<span class="inline-block px-3 py-1 mt-2 bg-surface-container text-deep-navy font-label-md text-label-md rounded-full border border-muted-blue-gray">{{ dir.cargo || 'Director' }}</span>
+									<span class="inline-block px-3 py-1 mt-2 bg-surface-container text-deep-navy font-label-md text-label-md rounded-md border border-muted-blue-gray">{{ dir.cargo || 'Director' }}</span>
 								</div>
 							</div>
 							<p class="font-body-md text-body-md text-slate-gray mb-6">
@@ -125,58 +125,56 @@
 								target="_blank"
 								rel="noopener noreferrer"
 							>
-								<span class="material-symbols-outlined text-[20px]">link</span> ORCID
+								<i class="bi bi-link-45deg text-lg"></i> ORCID
 							</a>
 							<button
 								type="button"
-								class="flex items-center gap-2 text-secondary hover:text-primary transition-colors font-body-sm text-body-sm"
+								class="inline-flex items-center gap-2 text-secondary hover:text-primary transition-colors font-body-sm text-body-sm"
 								[attr.title]="dir.correo || dir.email || ''"
 								(click)="copyEmail(dir.correo || dir.email, 'director')"
 							>
-								<span class="material-symbols-outlined text-[20px]">mail</span>
+								<i class="bi bi-envelope text-lg"></i>
 								<span *ngIf="copiedEmailKey === 'director'" class="text-primary">Copiado</span>
 							</button>
 							<a
 								*ngIf="dir.linkedin"
-								class="text-secondary hover:text-primary transition-colors"
+								class="inline-flex items-center justify-center text-secondary hover:text-primary transition-colors"
 								[href]="dir.linkedin"
 								target="_blank"
 								rel="noopener noreferrer"
 								title="LinkedIn"
 							>
-								<svg class="w-5 h-5" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-									<path d="M20.45 20.45h-3.56v-5.57c0-1.33-.03-3.04-1.85-3.04-1.85 0-2.13 1.45-2.13 2.94v5.67H9.35V9h3.41v1.56h.05c.48-.9 1.65-1.85 3.4-1.85 3.63 0 4.3 2.39 4.3 5.5v6.24zM5.34 7.43a2.06 2.06 0 1 1 0-4.12 2.06 2.06 0 0 1 0 4.12zM7.12 20.45H3.56V9h3.56v11.45z" />
-								</svg>
+								<i class="bi bi-linkedin text-lg"></i>
 							</a>
 							<a
 								*ngIf="dir.facebook"
-								class="text-secondary hover:text-primary transition-colors"
+								class="inline-flex items-center justify-center text-secondary hover:text-primary transition-colors"
 								[href]="dir.facebook"
 								target="_blank"
 								rel="noopener noreferrer"
 								title="Facebook"
 							>
-								<span class="material-symbols-outlined text-[20px]">public</span>
+								<i class="bi bi-facebook text-lg"></i>
 							</a>
 							<a
 								*ngIf="dir.instagram"
-								class="text-secondary hover:text-primary transition-colors"
+								class="inline-flex items-center justify-center text-secondary hover:text-primary transition-colors"
 								[href]="dir.instagram"
 								target="_blank"
 								rel="noopener noreferrer"
 								title="Instagram"
 							>
-								<span class="material-symbols-outlined text-[20px]">photo_camera</span>
+								<i class="bi bi-instagram text-lg"></i>
 							</a>
 							<a
 								*ngIf="dir.telegram"
-								class="text-secondary hover:text-primary transition-colors"
+								class="inline-flex items-center justify-center text-secondary hover:text-primary transition-colors"
 								[href]="dir.telegram"
 								target="_blank"
 								rel="noopener noreferrer"
 								title="Telegram"
 							>
-								<span class="material-symbols-outlined text-[20px]">send</span>
+								<i class="bi bi-telegram text-lg"></i>
 							</a>
 						</div>
 					</div>
@@ -186,14 +184,14 @@
 								<img
 									[alt]="sub.nombre"
 									[src]="sub.foto ? resolveBackendUrl(sub.foto) : 'assets/images/placeholder.jpg'"
-									class="w-16 h-16 rounded-full object-cover border border-muted-blue-gray"
+									class="w-24 h-24 rounded-full object-cover border border-muted-blue-gray"
 								/>
 								<div>
-									<h3 class="font-headline-lg text-headline-lg text-deep-navy leading-tight">{{ sub.nombre }}</h3>
-									<span class="inline-block px-2 py-0.5 mt-1 bg-surface-container text-deep-navy font-label-md text-[10px] uppercase tracking-wider rounded border border-muted-blue-gray">{{ sub.cargo || 'Subdirector' }}</span>
+									<h3 class="font-headline-md text-headline-md text-deep-navy leading-tight">{{ sub.nombre }}</h3>
+									<span class="inline-block px-2 py-0.5 mt-1 bg-surface-container text-deep-navy font-label-md text-[10px] uppercase tracking-wider rounded-md border border-muted-blue-gray">{{ sub.cargo || 'Subdirector' }}</span>
 								</div>
 							</div>
-							<p class="font-body-sm text-body-sm text-slate-gray mb-6 line-clamp-4">
+							<p class="font-body-md text-body-md text-slate-gray mb-6 line-clamp-4">
 								{{ sub.biografia || 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.' }}
 							</p>
 						</div>
@@ -205,63 +203,187 @@
 								target="_blank"
 								rel="noopener noreferrer"
 							>
-								<span class="material-symbols-outlined text-[20px]">link</span> ORCID
+								<i class="bi bi-link-45deg text-lg"></i> ORCID
 							</a>
 							<button
 								type="button"
-								class="text-secondary hover:text-primary transition-colors"
+								class="inline-flex items-center text-secondary hover:text-primary transition-colors"
 								[attr.title]="sub.correo || sub.email || ''"
 								(click)="copyEmail(sub.correo || sub.email, 'subdirector')"
 							>
-								<span class="material-symbols-outlined text-[20px]">mail</span>
+								<i class="bi bi-envelope text-lg"></i>
 								<span *ngIf="copiedEmailKey === 'subdirector'" class="text-primary ml-1">Copiado</span>
 							</button>
 							<a
 								*ngIf="sub.linkedin"
-								class="text-secondary hover:text-primary transition-colors"
+								class="inline-flex items-center justify-center text-secondary hover:text-primary transition-colors"
 								[href]="sub.linkedin"
 								target="_blank"
 								rel="noopener noreferrer"
 								title="LinkedIn"
 							>
-								<svg class="w-5 h-5" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-									<path d="M20.45 20.45h-3.56v-5.57c0-1.33-.03-3.04-1.85-3.04-1.85 0-2.13 1.45-2.13 2.94v5.67H9.35V9h3.41v1.56h.05c.48-.9 1.65-1.85 3.4-1.85 3.63 0 4.3 2.39 4.3 5.5v6.24zM5.34 7.43a2.06 2.06 0 1 1 0-4.12 2.06 2.06 0 0 1 0 4.12zM7.12 20.45H3.56V9h3.56v11.45z" />
-								</svg>
+								<i class="bi bi-linkedin text-lg"></i>
 							</a>
 							<a
 								*ngIf="sub.facebook"
-								class="text-secondary hover:text-primary transition-colors"
+								class="inline-flex items-center justify-center text-secondary hover:text-primary transition-colors"
 								[href]="sub.facebook"
 								target="_blank"
 								rel="noopener noreferrer"
 								title="Facebook"
 							>
-								<span class="material-symbols-outlined text-[20px]">public</span>
+								<i class="bi bi-facebook text-lg"></i>
 							</a>
 							<a
 								*ngIf="sub.instagram"
-								class="text-secondary hover:text-primary transition-colors"
+								class="inline-flex items-center justify-center text-secondary hover:text-primary transition-colors"
 								[href]="sub.instagram"
 								target="_blank"
 								rel="noopener noreferrer"
 								title="Instagram"
 							>
-								<span class="material-symbols-outlined text-[20px]">photo_camera</span>
+								<i class="bi bi-instagram text-lg"></i>
 							</a>
 							<a
 								*ngIf="sub.telegram"
-								class="text-secondary hover:text-primary transition-colors"
+								class="inline-flex items-center justify-center text-secondary hover:text-primary transition-colors"
 								[href]="sub.telegram"
 								target="_blank"
 								rel="noopener noreferrer"
 								title="Telegram"
 							>
-								<span class="material-symbols-outlined text-[20px]">send</span>
+								<i class="bi bi-telegram text-lg"></i>
 							</a>
 						</div>
 					</div>
 				</div>
 			</div>
+
+		</div>
+	</section>
+
+	<!-- Sección: Proyecto Destacado -->
+	<section class="bg-surface-container-low py-24 border-b border-muted-blue-gray">
+		<div class="max-w-max-width mx-auto px-margin-mobile md:px-margin-desktop">
+			<div class="flex flex-col md:flex-row md:items-center md:justify-between gap-6 mb-12">
+				<div>
+					<h2 class="font-headline-lg text-headline-lg text-deep-navy mb-4">Proyecto de Investigación Destacado</h2>
+					<p class="font-body-md text-body-md text-slate-gray max-w-2xl font-normal">Explora uno de nuestros proyectos de investigación más significativos enfocados en la sustentabilidad y el desarrollo tecnológico.</p>
+				</div>
+				<a class="inline-flex items-center justify-center px-6 py-3 border border-primary text-primary font-label-md text-label-md rounded-DEFAULT hover:bg-surface-container-low transition-colors whitespace-nowrap" href="/proyectos">Ver todos los proyectos</a>
+			</div>
+
+			<article class="bg-surface-container-lowest border border-muted-blue-gray rounded-DEFAULT overflow-hidden hover:shadow-[0px_4px_20px_rgba(8,31,77,0.08)] transition-shadow duration-300 flex flex-col md:flex-row">
+				<div *ngIf="primerProyecto?.imagen" class="w-full md:w-1/3 min-h-[320px] md:min-h-full bg-surface-container-low relative overflow-hidden flex-shrink-0">
+					<img [alt]="primerProyecto?.titulo || 'Mitigación de la Isla de Calor Urbana'" class="absolute inset-0 w-full h-full object-cover" [src]="resolveBackendUrl(primerProyecto?.imagen)" />
+				</div>
+				<div [class]="primerProyecto?.imagen ? 'p-6 md:p-8 w-full md:w-2/3 flex flex-col justify-between' : 'p-6 md:p-8 w-full flex flex-col justify-between'">
+					<div>
+						<div class="flex flex-wrap gap-2 mb-4">
+							<span class="bg-surface-container-highest text-deep-navy px-3 py-1 font-label-md text-label-md rounded-DEFAULT border border-cool-gray">Proyecto Destacado</span>
+							<span *ngIf="primerProyecto?.categorias" class="flex flex-wrap gap-2">
+								<span *ngFor="let cat of primerProyecto?.categorias || []" class="bg-surface-container-highest text-deep-navy px-3 py-1 font-label-md text-label-md rounded-DEFAULT">{{ cat }}</span>
+							</span>
+							<span *ngIf="!primerProyecto?.categorias" class="bg-surface-container-highest text-deep-navy px-3 py-1 font-label-md text-label-md rounded-DEFAULT">Sostenibilidad</span>
+						</div>
+						<h3 class="font-headline-lg text-headline-lg text-deep-navy mb-2 transition-colors">
+							{{ primerProyecto?.titulo || 'Mitigación de la Isla de Calor Urbana mediante Infraestructura Verde' }}
+						</h3>
+						<div class="mb-6 flex items-start gap-2">
+							<span class="material-symbols-outlined text-cool-gray text-xl mt-1">groups</span>
+							<div>
+								<span class="font-label-md text-label-md text-slate-gray block uppercase tracking-wider mb-1">Participantes</span>
+								<p class="font-body-sm text-body-sm text-deep-navy">
+									{{ primerProyecto?.participantes || 'Dr. Sarah Jenkins (PI), Mark Owens (Postdoc), Elena Rostova (PhD Candidate)' }}
+								</p>
+							</div>
+						</div>
+						<div class="space-y-6 flex-grow">
+							<div>
+								<h4 class="font-headline-md text-body-lg font-semibold text-secondary mb-2">Descripción</h4>
+								<p class="font-body-md text-body-md text-slate-gray">
+									{{ primerProyecto?.descripcion || 'Este estudio investiga la eficacia de la infraestructura verde en corredores urbanos de alta densidad. Mediante el despliegue de una red de sensores microclimáticos, se desarrollan modelos predictivos para evaluar el potencial de enfriamiento de la vegetación.' }}
+								</p>
+							</div>
+							<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+								<div class="bg-surface p-4 border border-cool-gray rounded-DEFAULT">
+									<h5 class="font-headline-md text-body-md font-semibold text-secondary mb-2 flex items-center gap-2"><span class="material-symbols-outlined text-primary text-sm">flag</span> Objetivos</h5>
+									<p class="font-body-sm text-body-sm text-slate-gray" style="white-space: pre-line;">
+										{{ primerProyecto ? getLimitedObjetivos(primerProyecto.objetivos) : '• Quantify surface temperature variance\n• Model airflow impedance of varying vegetation\n• Develop actionable zoning guidelines' }}
+									</p>
+								</div>
+								<div class="bg-surface p-4 border border-cool-gray rounded-DEFAULT">
+									<h5 class="font-headline-md text-body-md font-semibold text-secondary mb-2 flex items-center gap-2"><span class="material-symbols-outlined text-primary text-sm">analytics</span> Resultados</h5>
+									<p class="font-body-sm text-body-sm text-slate-gray">
+										{{ primerProyecto ? getLimitedResultados(primerProyecto.resultados) : 'Initial data indicates a 2.4°C average reduction in ambient temperature within 50 meters of high-density green roofing installations.' }}
+									</p>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="mt-8 pt-6 border-t border-muted-blue-gray flex flex-col sm:flex-row justify-between items-stretch sm:items-center gap-4">
+						<span class="font-label-md text-label-md text-cool-gray">
+							{{ primerProyecto?.estado || 'En Curso' }} • Est. Finalización: Q4 2025
+						</span>
+						<a class="inline-flex items-center justify-center px-6 py-2.5 bg-primary text-on-primary font-label-md text-label-md rounded-DEFAULT hover:bg-surface-tint transition-colors text-center" href="/proyectos">
+							Ver Proyecto Completo <span class="material-symbols-outlined text-sm ml-1">arrow_forward</span>
+						</a>
+					</div>
+				</div>
+			</article>
+		</div>
+	</section>
+
+	<!-- Sección: Investigación Destacada -->
+	<section class="bg-surface py-24">
+		<div class="max-w-max-width mx-auto px-margin-mobile md:px-margin-desktop">
+			<div class="flex flex-col md:flex-row md:items-center md:justify-between gap-6 mb-12">
+				<div>
+					<h2 class="font-headline-lg text-headline-lg text-deep-navy mb-4">Investigación Científica Destacada</h2>
+					<p class="font-body-md text-body-md text-slate-gray max-w-2xl font-normal">Conoce nuestras publicaciones más recientes en revistas indexadas y foros académicos de prestigio internacional.</p>
+				</div>
+				<a class="inline-flex items-center justify-center px-6 py-3 border border-primary text-primary font-label-md text-label-md rounded-DEFAULT hover:bg-surface-container-low transition-colors whitespace-nowrap" href="/publicaciones">Ver todas las publicaciones</a>
+			</div>
+
+			<article class="bg-surface-container-lowest border border-muted-blue-gray rounded-lg p-6 md:p-8 flex flex-col md:flex-row gap-8 hover:shadow-custom-soft transition-shadow">
+				<div *ngIf="primeraPublicacion?.portada" class="md:w-1/4 flex-shrink-0">
+					<div class="aspect-[3/4] bg-surface-container rounded border border-cool-gray overflow-hidden relative">
+						<img [alt]="primeraPublicacion?.titulo || 'Journal Cover'" class="w-full h-full object-cover" [src]="resolveBackendUrl(primeraPublicacion?.portada)" />
+						<div class="absolute top-2 left-2 bg-neutral text-deep-navy font-label-md text-label-md px-2 py-1 rounded bg-surface-container-lowest border border-muted-blue-gray">Destacado</div>
+					</div>
+				</div>
+				<div [class]="primeraPublicacion?.portada ? 'md:w-3/4 flex flex-col justify-between' : 'w-full flex flex-col justify-between'">
+					<div>
+						<div class="flex gap-2 mb-3">
+							<span class="bg-surface-container-high text-deep-navy font-label-md text-label-md px-2 py-1 rounded">Sostenibilidad</span>
+							<span class="bg-surface-container-high text-deep-navy font-label-md text-label-md px-2 py-1 rounded">Modelos Energéticos</span>
+						</div>
+						<h3 class="font-headline-lg text-headline-lg text-deep-navy mb-2 transition-colors">
+							{{ primeraPublicacion?.titulo || 'Optimizing Renewable Energy Integration in Urban Grids: A Multi-Variable Analysis' }}
+						</h3>
+						<p class="font-body-md text-body-md text-secondary font-medium mb-4">
+							Autores: {{ primeraPublicacion?.autores || 'Dr. E. Carter, A. Rodriguez, S. Patel' }}
+						</p>
+						<div class="bg-surface border-l-2 border-primary p-4 mb-6">
+							<h4 class="font-label-md text-label-md text-primary uppercase tracking-wider mb-2">Resumen (Abstract)</h4>
+							<p class="font-body-sm text-body-sm text-on-surface-variant">
+								{{ primeraPublicacion ? getLimitedResumen(primeraPublicacion.resumen, 300) : 'This study presents a novel framework for integrating diverse renewable energy sources into existing urban power grids. By analyzing multi-variable data from three major metropolitan areas, we identify key bottlenecks in current infrastructural models and propose algorithmic adjustments.' }}
+							</p>
+						</div>
+					</div>
+					<div class="flex flex-col sm:flex-row justify-between items-start sm:items-center pt-4 border-t border-surface-container-high">
+						<div class="mb-4 sm:mb-0">
+							<p class="font-label-md text-label-md text-slate-gray mb-1">Cita(s)</p>
+							<p class="font-body-sm text-body-sm text-deep-navy">
+								{{ primeraPublicacion?.cita || 'Carter, E., et al. (2024). Journal of Sustainable Engineering, 42(3), 112-128.' }}
+							</p>
+						</div>
+						<a class="bg-primary hover:bg-surface-tint text-on-primary px-6 py-2.5 rounded-DEFAULT font-label-md text-label-md transition-colors flex items-center gap-2" href="/publicaciones">
+							Ver Artículo Completo <span class="material-symbols-outlined text-sm">arrow_forward</span>
+						</a>
+					</div>
+				</div>
+			</article>
 		</div>
 	</section>
 </main>

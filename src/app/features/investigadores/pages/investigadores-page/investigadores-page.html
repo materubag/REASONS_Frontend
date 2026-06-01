@@ -1,10 +1,20 @@
 <main class="flex-grow w-full max-w-max-width mx-auto px-margin-mobile md:px-margin-desktop py-16 md:py-24">
 	<div class="mb-16 max-w-3xl">
-		<h1 class="font-headline-xl-mobile md:font-headline-xl text-headline-xl-mobile md:text-headline-xl text-deep-navy mb-6">Equipo de Trabajo</h1>
-		<p class="font-body-lg text-body-lg text-slate-gray">Conozca a los investigadores y profesionales que impulsan las iniciativas de sostenibilidad, ingenieria e innovacion dentro del grupo de investigacion REASONS.</p>
+		<h1 class="font-headline-xl-mobile md:font-headline-xl text-headline-xl-mobile md:text-headline-xl text-deep-navy mb-6">
+			Equipo de Trabajo
+		</h1>
+
+		<p class="font-body-lg text-body-lg text-slate-gray">
+			Conozca a los investigadores y profesionales que impulsan las iniciativas de sostenibilidad,
+			ingenieria e innovacion dentro del grupo de investigacion REASONS.
+		</p>
 	</div>
 
-	<div *ngIf="!loading && (director || otrosInvestigadores.length > 0)" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-gutter">
+	<div
+		*ngIf="!loading && (director || otrosInvestigadores.length > 0)"
+		class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-gutter"
+	>
+		<!-- DIRECTOR -->
 		<div
 			*ngIf="director as dir"
 			class="card bg-surface-container-lowest border border-cool-gray rounded-xl p-8 md:col-span-2 lg:col-span-2 hover:shadow-[0px_4px_20px_rgba(8,31,77,0.08)] transition-all duration-300 group flex flex-col justify-between cursor-pointer"
@@ -17,16 +27,31 @@
 						[src]="dir.foto ? resolveBackendUrl(dir.foto) : 'assets/images/placeholder.jpg'"
 						class="w-24 h-24 rounded-full object-cover border border-muted-blue-gray"
 					/>
+
 					<div>
-						<h2 class="font-headline-md text-headline-md text-deep-navy group-hover:text-primary transition-colors">{{ dir.nombre }}</h2>
-						<span class="inline-block px-3 py-1 mt-2 bg-surface-container text-deep-navy font-label-md text-label-md rounded-full border border-muted-blue-gray">{{ dir.cargo || 'Director' }}</span>
+						<h2 class="font-headline-md text-headline-md text-deep-navy group-hover:text-primary transition-colors">
+							{{ dir.nombre }}
+						</h2>
+
+						<span
+							class="inline-block px-3 py-1 mt-2 bg-surface-container text-deep-navy font-label-md text-label-md rounded-full border border-muted-blue-gray"
+						>
+							{{ dir.cargo || 'Director' }}
+						</span>
 					</div>
 				</div>
-				<p class="font-body-md text-body-md text-slate-gray mb-6">{{ getShortBio(dir.biografia) || 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.' }}</p>
+
+				<p class="font-body-md text-body-md text-slate-gray mb-6">
+					{{ getShortBio(dir.biografia) || 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.' }}
+				</p>
+
 				<div class="text-center text-slate-gray arrow-down">
-					<span class="material-symbols-outlined" aria-hidden="true">expand_more</span>
+					<span class="material-symbols-outlined" aria-hidden="true">
+						expand_more
+					</span>
 				</div>
 			</div>
+
 			<div class="flex flex-wrap items-center gap-4 pt-4 border-t border-surface-container-high">
 				<a
 					*ngIf="dir.orcid"
@@ -36,66 +61,73 @@
 					rel="noopener noreferrer"
 					(click)="$event.stopPropagation()"
 				>
-					<span class="material-symbols-outlined text-[20px]">link</span> ORCID
+					<i class="bi bi-link-45deg text-lg flex items-center justify-center leading-none"></i>
+					<span>ORCID</span>
 				</a>
+
 				<button
 					type="button"
 					class="flex items-center gap-2 text-secondary hover:text-primary transition-colors font-body-sm text-body-sm"
 					[attr.title]="dir.correo || dir.email || ''"
 					(click)="$event.stopPropagation(); copyEmail(dir.correo || dir.email, dir.id)"
 				>
-					<span class="material-symbols-outlined text-[20px]">mail</span>
-					<span *ngIf="copiedEmailId === dir.id" class="text-primary">Copiado</span>
+					<i class="bi bi-envelope text-lg flex items-center justify-center leading-none"></i>
+					<span *ngIf="copiedEmailId === dir.id" class="text-primary">
+						Copiado
+					</span>
 				</button>
+
 				<a
 					*ngIf="dir.linkedin"
-					class="text-secondary hover:text-primary transition-colors"
+					class="flex items-center justify-center text-secondary hover:text-primary transition-colors"
 					[href]="dir.linkedin"
 					target="_blank"
 					rel="noopener noreferrer"
 					title="LinkedIn"
 					(click)="$event.stopPropagation()"
 				>
-					<svg class="w-5 h-5" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-						<path d="M20.45 20.45h-3.56v-5.57c0-1.33-.03-3.04-1.85-3.04-1.85 0-2.13 1.45-2.13 2.94v5.67H9.35V9h3.41v1.56h.05c.48-.9 1.65-1.85 3.4-1.85 3.63 0 4.3 2.39 4.3 5.5v6.24zM5.34 7.43a2.06 2.06 0 1 1 0-4.12 2.06 2.06 0 0 1 0 4.12zM7.12 20.45H3.56V9h3.56v11.45z" />
-					</svg>
+					<i class="bi bi-linkedin text-lg"></i>
 				</a>
+
 				<a
 					*ngIf="dir.facebook"
-					class="text-secondary hover:text-primary transition-colors"
+					class="flex items-center justify-center text-secondary hover:text-primary transition-colors"
 					[href]="dir.facebook"
 					target="_blank"
 					rel="noopener noreferrer"
 					title="Facebook"
 					(click)="$event.stopPropagation()"
 				>
-					<span class="material-symbols-outlined text-[20px]">public</span>
+					<i class="bi bi-facebook text-lg"></i>
 				</a>
+
 				<a
 					*ngIf="dir.instagram"
-					class="text-secondary hover:text-primary transition-colors"
+					class="flex items-center justify-center text-secondary hover:text-primary transition-colors"
 					[href]="dir.instagram"
 					target="_blank"
 					rel="noopener noreferrer"
 					title="Instagram"
 					(click)="$event.stopPropagation()"
 				>
-					<span class="material-symbols-outlined text-[20px]">photo_camera</span>
+					<i class="bi bi-instagram text-lg"></i>
 				</a>
+
 				<a
 					*ngIf="dir.telegram"
-					class="text-secondary hover:text-primary transition-colors"
+					class="flex items-center justify-center text-secondary hover:text-primary transition-colors"
 					[href]="dir.telegram"
 					target="_blank"
 					rel="noopener noreferrer"
 					title="Telegram"
 					(click)="$event.stopPropagation()"
 				>
-					<span class="material-symbols-outlined text-[20px]">send</span>
+					<i class="bi bi-telegram text-lg"></i>
 				</a>
 			</div>
 		</div>
 
+		<!-- INVESTIGADORES -->
 		<div
 			*ngFor="let investigador of otrosInvestigadores"
 			class="card bg-surface-container-lowest border border-cool-gray rounded-xl p-6 hover:shadow-[0px_4px_20px_rgba(8,31,77,0.08)] transition-all duration-300 group flex flex-col justify-between cursor-pointer"
@@ -106,18 +138,33 @@
 					<img
 						[alt]="investigador.nombre"
 						[src]="investigador.foto ? resolveBackendUrl(investigador.foto) : 'assets/images/placeholder.jpg'"
-						class="w-16 h-16 rounded-full object-cover border border-muted-blue-gray"
+						class="w-24 h-24 rounded-full object-cover border border-muted-blue-gray"
 					/>
+
 					<div>
-						<h3 class="font-headline-lg text-headline-lg text-deep-navy leading-tight">{{ investigador.nombre }}</h3>
-						<span class="inline-block px-2 py-0.5 mt-1 bg-surface-container text-deep-navy font-label-md text-[10px] uppercase tracking-wider rounded border border-muted-blue-gray">{{ investigador.cargo || 'Investigador' }}</span>
+						<h3 class="font-headline-md text-headline-md text-deep-navy leading-tight">
+							{{ investigador.nombre }}
+						</h3>
+
+						<span
+							class="inline-block px-3 py-1 mt-2 bg-surface-container text-deep-navy font-label-md text-label-md rounded-full border border-muted-blue-gray"
+						>
+							{{ investigador.cargo || 'Investigador' }}
+						</span>
 					</div>
 				</div>
-				<p class="font-body-sm text-body-sm text-slate-gray mb-6">{{ getShortBio(investigador.biografia) || 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.' }}</p>
+
+				<p class="font-body-md text-body-md text-slate-gray mb-6">
+					{{ getShortBio(investigador.biografia) || 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.' }}
+				</p>
+
 				<div class="text-center text-slate-gray arrow-down">
-					<span class="material-symbols-outlined" aria-hidden="true">expand_more</span>
+					<span class="material-symbols-outlined" aria-hidden="true">
+						expand_more
+					</span>
 				</div>
 			</div>
+
 			<div class="flex flex-wrap items-center gap-3 pt-4 border-t border-surface-container-high">
 				<a
 					*ngIf="investigador.orcid"
@@ -127,69 +174,80 @@
 					rel="noopener noreferrer"
 					(click)="$event.stopPropagation()"
 				>
-					<span class="material-symbols-outlined text-[20px]">link</span> ORCID
+					<i class="bi bi-link-45deg text-lg flex items-center justify-center leading-none"></i>
+					<span>ORCID</span>
 				</a>
+
 				<button
 					type="button"
-					class="text-secondary hover:text-primary transition-colors"
+					class="flex items-center gap-2 text-secondary hover:text-primary transition-colors"
 					[attr.title]="investigador.correo || investigador.email || ''"
 					(click)="$event.stopPropagation(); copyEmail(investigador.correo || investigador.email, investigador.id)"
 				>
-					<span class="material-symbols-outlined text-[20px]">mail</span>
-					<span *ngIf="copiedEmailId === investigador.id" class="text-primary ml-1">Copiado</span>
+					<i class="bi bi-envelope text-lg flex items-center justify-center leading-none"></i>
+					<span
+						*ngIf="copiedEmailId === investigador.id"
+						class="text-primary"
+					>
+						Copiado
+					</span>
 				</button>
+
 				<a
 					*ngIf="investigador.linkedin"
-					class="text-secondary hover:text-primary transition-colors"
+					class="flex items-center justify-center text-secondary hover:text-primary transition-colors"
 					[href]="investigador.linkedin"
 					target="_blank"
 					rel="noopener noreferrer"
 					title="LinkedIn"
 					(click)="$event.stopPropagation()"
 				>
-					<svg class="w-5 h-5" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-						<path d="M20.45 20.45h-3.56v-5.57c0-1.33-.03-3.04-1.85-3.04-1.85 0-2.13 1.45-2.13 2.94v5.67H9.35V9h3.41v1.56h.05c.48-.9 1.65-1.85 3.4-1.85 3.63 0 4.3 2.39 4.3 5.5v6.24zM5.34 7.43a2.06 2.06 0 1 1 0-4.12 2.06 2.06 0 0 1 0 4.12zM7.12 20.45H3.56V9h3.56v11.45z" />
-					</svg>
+					<i class="bi bi-linkedin text-lg"></i>
 				</a>
+
 				<a
 					*ngIf="investigador.facebook"
-					class="text-secondary hover:text-primary transition-colors"
+					class="flex items-center justify-center text-secondary hover:text-primary transition-colors"
 					[href]="investigador.facebook"
 					target="_blank"
 					rel="noopener noreferrer"
 					title="Facebook"
 					(click)="$event.stopPropagation()"
 				>
-					<span class="material-symbols-outlined text-[20px]">public</span>
+					<i class="bi bi-facebook text-lg"></i>
 				</a>
+
 				<a
 					*ngIf="investigador.instagram"
-					class="text-secondary hover:text-primary transition-colors"
+					class="flex items-center justify-center text-secondary hover:text-primary transition-colors"
 					[href]="investigador.instagram"
 					target="_blank"
 					rel="noopener noreferrer"
 					title="Instagram"
 					(click)="$event.stopPropagation()"
 				>
-					<span class="material-symbols-outlined text-[20px]">photo_camera</span>
+					<i class="bi bi-instagram text-lg"></i>
 				</a>
+
 				<a
 					*ngIf="investigador.telegram"
-					class="text-secondary hover:text-primary transition-colors"
+					class="flex items-center justify-center text-secondary hover:text-primary transition-colors"
 					[href]="investigador.telegram"
 					target="_blank"
 					rel="noopener noreferrer"
 					title="Telegram"
 					(click)="$event.stopPropagation()"
 				>
-					<span class="material-symbols-outlined text-[20px]">send</span>
+					<i class="bi bi-telegram text-lg"></i>
 				</a>
 			</div>
 		</div>
 	</div>
 
 	<div *ngIf="!loading && !director && otrosInvestigadores.length === 0" class="text-center py-12">
-		<p class="font-body-md text-body-md text-slate-gray">No hay investigadores disponibles.</p>
+		<p class="font-body-md text-body-md text-slate-gray">
+			No hay investigadores disponibles.
+		</p>
 	</div>
 
 	<div *ngIf="!loading && hasNextPage" class="flex justify-center mt-10">
@@ -204,6 +262,7 @@
 		</button>
 	</div>
 
+	<!-- MODAL -->
 	<div
 		*ngIf="activeInvestigador as selected"
 		class="modal-overlay active"
@@ -212,80 +271,97 @@
 		role="dialog"
 	>
 		<div class="modal-content" (click)="$event.stopPropagation()">
-			<button type="button" class="close-button" (click)="closeModal()" aria-label="Cerrar">&times;</button>
+			<button
+				type="button"
+				class="close-button"
+				(click)="closeModal()"
+				aria-label="Cerrar"
+			>
+				&times;
+			</button>
+
 			<div class="modal-header">
 				<img
 					[alt]="selected.nombre"
 					[src]="selected.foto ? resolveBackendUrl(selected.foto) : 'assets/images/placeholder.jpg'"
 					class="modal-avatar"
 				/>
+
 				<div class="modal-title-section">
 					<h2>{{ selected.nombre }}</h2>
 					<p>{{ selected.cargo || 'Investigador' }}</p>
 				</div>
 			</div>
+
 			<div class="modal-description">
-				<p>{{ selected.biografia || 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.' }}</p>
+				<p>
+					{{ selected.biografia || 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.' }}
+				</p>
 			</div>
+
 			<div class="modal-footer">
 				<a
 					*ngIf="selected.orcid"
+					class="flex items-center justify-center"
 					[href]="selected.orcid"
 					target="_blank"
 					rel="noopener noreferrer"
 					title="ORCID"
 				>
-					<span class="material-symbols-outlined text-[20px]">link</span>
+					<i class="bi bi-link-45deg text-lg flex items-center justify-center leading-none"></i>
 				</a>
+
 				<button
 					type="button"
-					class="text-secondary hover:text-primary transition-colors"
+					class="flex items-center justify-center text-secondary hover:text-primary transition-colors"
 					[attr.title]="selected.correo || selected.email || ''"
 					(click)="copyEmail(selected.correo || selected.email, selected.id)"
 				>
-					<span class="material-symbols-outlined text-[20px]">mail</span>
+					<i class="bi bi-envelope text-lg flex items-center justify-center leading-none"></i>
 				</button>
+
 				<a
 					*ngIf="selected.linkedin"
-					class="text-secondary hover:text-primary transition-colors"
+					class="flex items-center justify-center text-secondary hover:text-primary transition-colors"
 					[href]="selected.linkedin"
 					target="_blank"
 					rel="noopener noreferrer"
 					title="LinkedIn"
 				>
-					<svg class="w-5 h-5" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-						<path d="M20.45 20.45h-3.56v-5.57c0-1.33-.03-3.04-1.85-3.04-1.85 0-2.13 1.45-2.13 2.94v5.67H9.35V9h3.41v1.56h.05c.48-.9 1.65-1.85 3.4-1.85 3.63 0 4.3 2.39 4.3 5.5v6.24zM5.34 7.43a2.06 2.06 0 1 1 0-4.12 2.06 2.06 0 0 1 0 4.12zM7.12 20.45H3.56V9h3.56v11.45z" />
-					</svg>
+					<i class="bi bi-linkedin text-lg"></i>
 				</a>
+
 				<a
 					*ngIf="selected.facebook"
-					class="text-secondary hover:text-primary transition-colors"
+					class="flex items-center justify-center text-secondary hover:text-primary transition-colors"
 					[href]="selected.facebook"
 					target="_blank"
 					rel="noopener noreferrer"
 					title="Facebook"
 				>
-					<span class="material-symbols-outlined text-[20px]">public</span>
+					<i class="bi bi-facebook text-lg"></i>
 				</a>
+
 				<a
 					*ngIf="selected.instagram"
-					class="text-secondary hover:text-primary transition-colors"
+					class="flex items-center justify-center text-secondary hover:text-primary transition-colors"
 					[href]="selected.instagram"
 					target="_blank"
 					rel="noopener noreferrer"
 					title="Instagram"
 				>
-					<span class="material-symbols-outlined text-[20px]">photo_camera</span>
+					<i class="bi bi-instagram text-lg"></i>
 				</a>
+
 				<a
 					*ngIf="selected.telegram"
-					class="text-secondary hover:text-primary transition-colors"
+					class="flex items-center justify-center text-secondary hover:text-primary transition-colors"
 					[href]="selected.telegram"
 					target="_blank"
 					rel="noopener noreferrer"
 					title="Telegram"
 				>
-					<span class="material-symbols-outlined text-[20px]">send</span>
+					<i class="bi bi-telegram text-lg"></i>
 				</a>
 			</div>
 		</div>

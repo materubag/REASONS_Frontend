@@ -108,6 +108,7 @@ export class ContactoFormComponent implements OnInit {
   submitting = false;
   successMessage = '';
   errorMessage = '';
+  investigadorCorreos: string[] = [];
 
   constructor(
     private fb: FormBuilder,
@@ -121,7 +122,20 @@ export class ContactoFormComponent implements OnInit {
     });
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.apiService.getInvestigadores(1, 100).subscribe({
+      next: (res) => {
+        if (res && res.data) {
+          this.investigadorCorreos = res.data
+            .map((inv) => (inv.correo || inv.email || '').trim().toLowerCase())
+            .filter((correo) => correo !== '');
+        }
+      },
+      error: (err) => {
+        console.error('Error al cargar investigadores en formulario:', err);
+      }
+    });
+  }
 
   onSubmit(): void {
     if (this.form.invalid) return;
@@ -130,7 +144,36 @@ export class ContactoFormComponent implements OnInit {
     this.errorMessage = '';
     this.successMessage = '';
 
-    this.apiService.crearContacto(this.form.value).subscribe({
+    const emailValue = (this.form.value.email || '').trim().toLowerCase();
+
+    const forbiddenEmails = [
+      'reasons@uta.edu.ec',
+      'webmaster@uta.edu.ec',
+      'contact@uta.edu.ec',
+      'hcusecregeneral@uta.edu.ec',
+      'gestiondinnova@uta.edu.ec'
+    ];
+
+    if (forbiddenEmails.includes(emailValue)) {
+      this.errorMessage = 'No está permitido enviar mensajes con este correo institucional de contacto.';
+      this.submitting = false;
+      return;
+    }
+
+    if (this.investigadorCorreos.includes(emailValue)) {
+      this.errorMessage = 'Los investigadores registrados no pueden utilizar este formulario de contacto público.';
+      this.submitting = false;
+      return;
+    }
+
+    const payload = {
+      nombre: this.form.value.nombre,
+      correo: this.form.value.email,
+      mensaje: this.form.value.mensaje,
+      asunto: this.form.value.asunto
+    };
+
+    this.apiService.crearContacto(payload).subscribe({
       next: (response) => {
         if (response.success) {
           this.successMessage = 'Mensaje enviado exitosamente. Nos pondremos en contacto pronto.';

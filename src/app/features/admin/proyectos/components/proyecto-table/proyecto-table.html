@@ -1,0 +1,73 @@
+<div class="overflow-x-auto border border-muted-blue-gray/30 rounded-xl bg-surface-container-lowest shadow-sm">
+  <table class="w-full border-collapse text-left">
+    <thead>
+      <tr class="bg-surface-container border-b border-muted-blue-gray/20">
+        <th class="p-4 font-semibold text-deep-navy text-xs uppercase tracking-wider w-28">Imagen</th>
+        <th class="p-4 font-semibold text-deep-navy text-xs uppercase tracking-wider">Título</th>
+        <th class="p-4 font-semibold text-deep-navy text-xs uppercase tracking-wider w-40">Fechas</th>
+        <th class="p-4 font-semibold text-deep-navy text-xs uppercase tracking-wider">Objetivos</th>
+        <th class="p-4 font-semibold text-deep-navy text-xs uppercase tracking-wider w-28">Acciones</th>
+      </tr>
+    </thead>
+    <tbody class="divide-y divide-surface-container-high text-on-surface">
+      <tr *ngFor="let proj of proyectos" class="hover:bg-background/40 transition-colors">
+        <!-- Imagen -->
+        <td class="p-4">
+          <img 
+            [src]="proj.imagen ? resolveBackendUrl(proj.imagen) : defaultImage" 
+            [alt]="proj.titulo"
+            class="w-16 h-12 rounded object-cover border border-muted-blue-gray/20 shadow-sm"
+          >
+        </td>
+
+        <!-- Título -->
+        <td class="p-4 font-bold text-deep-navy text-sm max-w-xs">
+          {{ proj.titulo }}
+        </td>
+
+        <!-- Fechas -->
+        <td class="p-4 text-xs text-slate-gray whitespace-nowrap">
+          <div *ngIf="proj.fechaInicio">
+            <span class="font-semibold text-deep-navy text-[10px] uppercase tracking-wider block opacity-75">Inicio:</span> {{ proj.fechaInicio | date:'dd/MM/yyyy':'UTC' }}
+          </div>
+          <div *ngIf="proj.fechaFin" class="mt-1.5">
+            <span class="font-semibold text-deep-navy text-[10px] uppercase tracking-wider block opacity-75">Fin:</span> {{ proj.fechaFin | date:'dd/MM/yyyy':'UTC' }}
+          </div>
+          <span *ngIf="!proj.fechaInicio && !proj.fechaFin" class="italic opacity-60">Sin fechas</span>
+        </td>
+
+        <!-- Objetivos -->
+        <td class="p-4 text-xs text-slate-gray max-w-md truncate">
+          {{ proj.objetivos }}
+        </td>
+
+        <!-- Acciones -->
+        <td class="p-4">
+          <div class="flex items-center space-x-2">
+            <a 
+              [routerLink]="['/admin/proyectos/edit', proj.id]"
+              class="inline-flex items-center justify-center p-2 rounded bg-surface-container text-deep-navy hover:bg-primary/10 hover:text-primary transition-all"
+              title="Editar"
+            >
+              <span class="material-symbols-outlined text-[18px]">edit</span>
+            </a>
+            <button 
+              (click)="onDelete(proj.id)"
+              class="inline-flex items-center justify-center p-2 rounded bg-surface-container text-error hover:bg-error-container hover:text-on-error-container transition-all"
+              title="Eliminar"
+            >
+              <span class="material-symbols-outlined text-[18px]">delete</span>
+            </button>
+          </div>
+        </td>
+      </tr>
+
+      <tr *ngIf="proyectos.length === 0">
+        <td colspan="5" class="p-8 text-center text-slate-gray text-sm">
+          <span class="material-symbols-outlined text-4xl block mb-2 opacity-50">drafts</span>
+          No se encontraron proyectos con los filtros actuales.
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

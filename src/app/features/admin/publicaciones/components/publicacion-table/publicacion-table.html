@@ -1,0 +1,67 @@
+<div class="overflow-x-auto border border-muted-blue-gray/30 rounded-xl bg-surface-container-lowest shadow-sm">
+  <table class="w-full border-collapse text-left">
+    <thead>
+      <tr class="bg-surface-container border-b border-muted-blue-gray/20">
+        <th class="p-4 font-semibold text-deep-navy text-xs uppercase tracking-wider w-24">Portada</th>
+        <th class="p-4 font-semibold text-deep-navy text-xs uppercase tracking-wider">Título</th>
+        <th class="p-4 font-semibold text-deep-navy text-xs uppercase tracking-wider">Autores</th>
+        <th class="p-4 font-semibold text-deep-navy text-xs uppercase tracking-wider">Cita Académica</th>
+        <th class="p-4 font-semibold text-deep-navy text-xs uppercase tracking-wider w-28">Acciones</th>
+      </tr>
+    </thead>
+    <tbody class="divide-y divide-surface-container-high text-on-surface">
+      <tr *ngFor="let pub of publicaciones" class="hover:bg-background/40 transition-colors">
+        <!-- Portada -->
+        <td class="p-4">
+          <img 
+            [src]="pub.portada ? resolveBackendUrl(pub.portada) : defaultCover" 
+            [alt]="pub.titulo"
+            class="w-12 h-16 rounded object-cover border border-muted-blue-gray/20 shadow-sm"
+          >
+        </td>
+
+        <!-- Título -->
+        <td class="p-4 font-bold text-deep-navy text-sm max-w-xs">
+          {{ pub.titulo }}
+        </td>
+
+        <!-- Autores -->
+        <td class="p-4 text-xs text-slate-gray max-w-xs">
+          {{ pub.autores }}
+        </td>
+
+        <!-- Cita -->
+        <td class="p-4 text-xs text-slate-gray max-w-xs truncate">
+          {{ pub.cita }}
+        </td>
+
+        <!-- Acciones -->
+        <td class="p-4">
+          <div class="flex items-center space-x-2">
+            <a 
+              [routerLink]="['/admin/publicaciones/edit', pub.id]"
+              class="inline-flex items-center justify-center p-2 rounded bg-surface-container text-deep-navy hover:bg-primary/10 hover:text-primary transition-all"
+              title="Editar"
+            >
+              <span class="material-symbols-outlined text-[18px]">edit</span>
+            </a>
+            <button 
+              (click)="onDelete(pub.id)"
+              class="inline-flex items-center justify-center p-2 rounded bg-surface-container text-error hover:bg-error-container hover:text-on-error-container transition-all"
+              title="Eliminar"
+            >
+              <span class="material-symbols-outlined text-[18px]">delete</span>
+            </button>
+          </div>
+        </td>
+      </tr>
+
+      <tr *ngIf="publicaciones.length === 0">
+        <td colspan="5" class="p-8 text-center text-slate-gray text-sm">
+          <span class="material-symbols-outlined text-4xl block mb-2 opacity-50">drafts</span>
+          No se encontraron publicaciones con los filtros actuales.
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

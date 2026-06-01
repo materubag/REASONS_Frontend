@@ -1,0 +1,67 @@
+<div class="overflow-x-auto border border-muted-blue-gray/30 rounded-xl bg-surface-container-lowest shadow-sm">
+  <table class="w-full border-collapse text-left">
+    <thead>
+      <tr class="bg-surface-container border-b border-muted-blue-gray/20">
+        <th class="p-4 font-semibold text-deep-navy text-xs uppercase tracking-wider">Remitente</th>
+        <th class="p-4 font-semibold text-deep-navy text-xs uppercase tracking-wider">Correo</th>
+        <th class="p-4 font-semibold text-deep-navy text-xs uppercase tracking-wider">Mensaje</th>
+        <th class="p-4 font-semibold text-deep-navy text-xs uppercase tracking-wider">Fecha</th>
+        <th class="p-4 font-semibold text-deep-navy text-xs uppercase tracking-wider w-28">Acciones</th>
+      </tr>
+    </thead>
+    <tbody class="divide-y divide-surface-container-high text-on-surface">
+      <tr 
+        *ngFor="let item of contactos" 
+        (click)="onView(item)"
+        class="hover:bg-background/40 transition-colors cursor-pointer"
+      >
+        <!-- Remitente -->
+        <td class="p-4 font-medium text-deep-navy text-sm">
+          {{ item.nombre }}
+        </td>
+
+        <!-- Correo -->
+        <td class="p-4 text-sm text-slate-gray">
+          {{ item.correo }}
+        </td>
+
+        <!-- Asunto (Mensaje Extracto) -->
+        <td class="p-4 text-sm text-deep-navy font-semibold max-w-xs truncate">
+          {{ item.mensaje | slice:0:40 }}{{ item.mensaje.length > 40 ? '...' : '' }}
+        </td>
+
+        <!-- Fecha -->
+        <td class="p-4 text-xs text-slate-gray">
+          {{ item.fecha | date:'mediumDate' }}
+        </td>
+
+        <!-- Acciones -->
+        <td class="p-4">
+          <div class="flex items-center space-x-2">
+            <button 
+              (click)="onView(item)"
+              class="inline-flex items-center justify-center p-2 rounded bg-surface-container text-deep-navy hover:bg-primary/10 hover:text-primary transition-all"
+              title="Ver Mensaje"
+            >
+              <span class="material-symbols-outlined text-[18px]">visibility</span>
+            </button>
+            <button 
+              (click)="onDelete(item.id, $event)"
+              class="inline-flex items-center justify-center p-2 rounded bg-surface-container text-error hover:bg-error-container hover:text-on-error-container transition-all"
+              title="Eliminar"
+            >
+              <span class="material-symbols-outlined text-[18px]">delete</span>
+            </button>
+          </div>
+        </td>
+      </tr>
+
+      <tr *ngIf="contactos.length === 0">
+        <td colspan="5" class="p-8 text-center text-slate-gray text-sm">
+          <span class="material-symbols-outlined text-4xl block mb-2 opacity-50">drafts</span>
+          No se encontraron mensajes de contacto.
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
