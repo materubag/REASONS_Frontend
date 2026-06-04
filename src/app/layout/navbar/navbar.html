@@ -3,7 +3,7 @@
 		class="flex justify-between items-center px-margin-mobile md:px-margin-desktop w-full max-w-max-width mx-auto h-16 transition-all duration-200 ease-in-out">
 		<div class="flex items-center gap-4">
 			<a class="font-headline-md text-headline-md font-bold text-primary flex items-center gap-2" routerLink="/">
-				<img src="/Logo_sin_fondo.png" alt="REASONS Logo" class="h-8 w-auto object-contain" />
+				<img [src]="grupoInformacion?.miniLogo ? resolveBackendUrl(grupoInformacion?.miniLogo) : '/Logo_sin_fondo.png'" alt="REASONS Logo" class="h-8 w-auto object-contain" />
 				REASONS
 			</a>
 		</div>
@@ -70,7 +70,7 @@
 			<!-- Sidebar Header with Close Button -->
 			<div class="flex items-center justify-between px-6 h-16 border-b border-muted-blue-gray bg-surface">
 				<span class="font-headline-sm text-headline-sm font-bold text-primary flex items-center gap-2">
-					<img src="/Logo_sin_fondo.png" alt="REASONS Logo" class="h-8 w-auto object-contain" />
+					<img [src]="grupoInformacion?.miniLogo ? resolveBackendUrl(grupoInformacion?.miniLogo) : '/Logo_sin_fondo.png'" alt="REASONS Logo" class="h-8 w-auto object-contain" />
 					REASONS
 				</span>
 				<button 

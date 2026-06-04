@@ -15,7 +15,7 @@
 			</div>
 			<div class="md:col-span-5 mt-12 md:mt-0 relative">
 				<div class="aspect-square bg-surface-container rounded-xl overflow-hidden border border-muted-blue-gray relative">
-					<img alt="Ingenieros trabajando en un laboratorio moderno" class="object-cover w-full h-full" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD6SAfCLqpHzTghzBnEXhN5vzORaNW4Mc-dKBEJcf2qUZDxAidFEYdD3E4oTPttC3STFPtb0BGKavWoj3BKezrLEwBthRzfc7ofbgcACm4B2eA_7Ekx7hWE_AAxlqSrt7CQj8-iE3NxID881pflLYjjDOHSjmP4TDXOeP3buNFCndKoQZ4IiW8wnj_8gScKuRZ4lPkhG3J5Nk_xV5EVVT9kM-0m8IA-AMN0G_P9x5mQaMpCLeo52cpOJEnwCmGJbpJffLOiIf1O4XS4" />
+					<img [alt]="grupoInformacion?.nombre || 'Ingenieros trabajando en un laboratorio moderno'" class="object-cover w-full h-full" [src]="grupoInformacion?.portada ? resolveBackendUrl(grupoInformacion?.portada) : '/PortadaHome.png'" />
 				</div>
 			</div>
 		</div>
@@ -53,7 +53,7 @@
 		<div class="max-w-max-width mx-auto px-margin-mobile md:px-margin-desktop">
 			<div class="mb-16 text-center">
 				<h2 class="font-headline-lg text-headline-lg text-deep-navy mb-4">Líneas de Investigación</h2>
-				<p class="font-body-md text-body-md text-slate-gray max-w-2xl mx-auto">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+				<p class="font-body-md text-body-md text-slate-gray max-w-2xl mx-auto">Desarrollamos soluciones innovadoras en ingeniería con un enfoque multidisciplinario, articulando el avance tecnológico con la sostenibilidad y el impacto social.</p>
 			</div>
 			<div class="grid grid-cols-1 md:grid-cols-3 gap-gutter">
 				<div class="bg-surface border border-muted-blue-gray rounded-DEFAULT flex flex-col h-full hover:border-primary transition-colors group">
@@ -95,7 +95,7 @@
 				<div class="flex flex-col md:flex-row md:items-center md:justify-between gap-6 mb-10">
 					<div>
 						<h3 class="font-headline-md text-headline-md text-deep-navy mb-3">Dirección del equipo</h3>
-						<p class="font-body-md text-body-md text-slate-gray max-w-2xl">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.</p>
+						<p class="font-body-md text-body-md text-slate-gray max-w-2xl">Nuestro equipo directivo lidera y coordina las actividades científicas y de vinculación del grupo, guiando el desarrollo de proyectos y fomentando la excelencia en investigación.</p>
 					</div>
 					<a class="inline-flex items-center justify-center px-6 py-3 border border-primary text-primary font-label-md text-label-md rounded-DEFAULT hover:bg-surface-container-low transition-colors" href="/investigadores">Ver equipo completo</a>
 				</div>

@@ -1,8 +1,19 @@
 <footer class="bg-surface-container-highest border-t border-muted-blue-gray mt-auto">
 	<div class="flex flex-col md:flex-row justify-between items-center py-12 px-margin-mobile md:px-margin-desktop w-full max-w-max-width mx-auto gap-gutter">
-		<div class="text-center md:text-left">
-			<span class="font-headline-sm text-headline-sm font-semibold text-deep-navy">REASONS</span>
-			<p class="font-body-sm text-body-sm text-on-surface-variant mt-2">© 2024 REASONS Research Group. Todos los derechos reservados. Universidad Técnica de Ambato.</p>
+		<div class="text-center md:text-left flex flex-col md:flex-row items-center gap-4 md:gap-16">
+			<!-- Logo para modo claro -->
+			<img [src]="grupoInformacion?.logo ? resolveBackendUrl(grupoInformacion?.logo) : '/defaultLogo.png'" alt="REASONS Logo Completo" class="h-32 w-auto object-contain dark:hidden" />
+			
+			<!-- Texto copyright para modo claro -->
+			<div class="dark:hidden">
+				<p class="font-body-sm text-body-sm text-on-surface-variant">© 2024 REASONS Research Group. Todos los derechos reservados. Universidad Técnica de Ambato.</p>
+			</div>
+
+			<!-- Texto REASONS y copyright para modo oscuro -->
+			<div class="text-center md:text-left hidden dark:block">
+				<span class="font-headline-sm text-headline-sm font-semibold text-deep-navy">REASONS</span>
+				<p class="font-body-sm text-body-sm text-on-surface-variant mt-2">© 2024 REASONS Research Group. Todos los derechos reservados. Universidad Técnica de Ambato.</p>
+			</div>
 		</div>
 		<div class="flex flex-col items-center md:items-end gap-4">
 			<nav class="flex flex-wrap justify-center md:justify-end gap-6">

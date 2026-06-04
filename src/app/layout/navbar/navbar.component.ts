@@ -1,6 +1,9 @@
 import { Component, OnInit, HostListener } from '@angular/core';
 import { RouterLink, RouterLinkActive } from '@angular/router';
 import { CommonModule } from '@angular/common';
+import { HomeStoreService } from '../../core/services';
+import { GrupoInformacion } from '../../core/models';
+import { resolveBackendUrl } from '../../core/utils/url';
 
 @Component({
   selector: 'app-navbar',
@@ -12,12 +15,33 @@ import { CommonModule } from '@angular/common';
 export class NavbarComponent implements OnInit {
   isDarkMode = false;
   isMobileMenuOpen = false;
+  grupoInformacion?: GrupoInformacion;
 
   private touchStartX = 0;
   private touchStartY = 0;
 
+  constructor(private homeStore: HomeStoreService) {}
+
   ngOnInit() {
     this.checkTheme();
+    this.loadGrupoInformacion();
+  }
+
+  private loadGrupoInformacion() {
+    this.homeStore.getGrupoInformacion(1, 1).subscribe({
+      next: (response) => {
+        if (response.success && response.data.length > 0) {
+          this.grupoInformacion = response.data[0];
+        }
+      },
+      error: (error) => {
+        console.error('Error loading grupo informacion in navbar:', error);
+      }
+    });
+  }
+
+  resolveBackendUrl(path?: string | null): string {
+    return resolveBackendUrl(path);
   }
 
   isHomeRoute(): boolean {
